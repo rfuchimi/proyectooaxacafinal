@@ -1,0 +1,18 @@
+Un pequeño tuutorial para los comandos de GIT.
+
+git config --list  #ver la configuracion de git.
+
+git config --global user.name "Usuario Git" # configurar un nombre de usuario global para git
+git config user.name #ver el nombre del usuario
+
+git clone urldelrepositorio  #clonamos un repositorio atravez de una url
+
+git add . #agregar todos los archivos para hacerles commit
+git commit -m "Motivo o descripcion del commit"
+git push origin master #agregar los archivos a la rama maestra
+
+
+git pull origin master # descargar cambios de la rama maestra
+
+git fetch --all #descarga lo último desde el control remoto sin intentar unir o rebasar
+git reset --hard origin/master # restablecer todos los archivos de la rama maestra
