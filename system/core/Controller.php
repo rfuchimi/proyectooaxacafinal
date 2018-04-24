@@ -77,6 +77,7 @@ class CI_Controller {
 
 		$this->load =& load_class('Loader', 'core');
 		$this->load->initialize();
+		$this->load->database($this->credentials->conexion());// Se agrega la linea para la conexion para la base de datos
 		log_message('info', 'Controller Class Initialized');
 	}
 

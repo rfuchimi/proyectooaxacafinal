@@ -6,7 +6,7 @@ class Conversation extends CI_Controller {
 	public function __construct(){
 		parent::__construct();
 		$this->load->library("Assistant");
-    $this->load->library("Credentials");
+    	$this->load->library("Credentials");
 		$this->load->library('session');
 	}
 
