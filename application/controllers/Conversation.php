@@ -30,6 +30,43 @@ class Conversation extends CI_Controller {
 				}
 			}
 		}
+
+		if(isset($data_array['output']['datos'])){
+			$datos = (object) ['pregunta' => $data_array['output']['datos']['pregunta']];
+			//Existe en sesion los datos y el numero de pregunta?
+			if(isset($this->session->userdata['datos']) && isset($this->session->userdata['datos']->pregunta)){
+					//El numero de pregunta en la sesion sigue siendo el mismo?
+					if($this->session->userdata['datos']->pregunta == $datos->pregunta){
+						//agregamos o modificamos los datos en la sesion
+						foreach ( $data_array['output']['datos'] as $key => $valor ) {
+							if(!empty($valor)){
+								$this->session->userdata['datos']->$key = $valor;
+							}
+						}
+					}else{
+						//creamos un objeto nuevo en la sesion
+						foreach ( $data_array['output']['datos'] as $key => $valor ) {
+							if(!empty($valor)){
+								$datos->$key = $valor;
+							}
+						}
+						$this->session->set_userdata('datos', $datos);
+					}
+			}else{
+				//creamos un objeto nuevo en la sesion
+				foreach ( $data_array['output']['datos'] as $key => $valor ) {
+					if(!empty($valor)){
+						$datos->$key = $valor;
+					}
+				}
+				$this->session->set_userdata('datos', $datos);
+			}
+		}else{
+			//creamos un objeto vacio en la sesion
+			$datos = null;
+			$this->session->set_userdata('datos', $datos);
+		}
+
 		$this->session->set_userdata('context', json_encode($data_array['context']));
 		$watson->set_context($this->session->userdata('context'));
 		$this->output->set_header('Content-Type: application/json; charset=utf-8');
