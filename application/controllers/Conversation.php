@@ -32,39 +32,31 @@ class Conversation extends CI_Controller {
 		}
 
 		if(isset($data_array['output']['datos'])){
-			$datos = (object) ['pregunta' => $data_array['output']['datos']['pregunta']];
-			//Existe en sesion los datos y el numero de pregunta?
-			if(isset($this->session->userdata['datos']) && isset($this->session->userdata['datos']->pregunta)){
-					//El numero de pregunta en la sesion sigue siendo el mismo?
-					if($this->session->userdata['datos']->pregunta == $datos->pregunta){
-						//agregamos o modificamos los datos en la sesion
-						foreach ( $data_array['output']['datos'] as $key => $valor ) {
-							if(!empty($valor)){
-								$this->session->userdata['datos']->$key = $valor;
-							}
-						}
-					}else{
-						//creamos un objeto nuevo en la sesion
-						foreach ( $data_array['output']['datos'] as $key => $valor ) {
-							if(!empty($valor)){
-								$datos->$key = $valor;
-							}
-						}
-						$this->session->set_userdata('datos', $datos);
-					}
-			}else{
-				//creamos un objeto nuevo en la sesion
+			if(isset($data_array['output']['datos']['pregunta'])){
+				$datos = (object) ['pregunta' => $data_array['output']['datos']['pregunta']];
+				//creamos un objeto con las variables
 				foreach ( $data_array['output']['datos'] as $key => $valor ) {
 					if(!empty($valor)){
 						$datos->$key = $valor;
 					}
 				}
-				$this->session->set_userdata('datos', $datos);
+				//hacemos la consulta dependiendo la pregunta
+				$respuesta = $this->consulta($datos);
+				if(count($data_array['output']['text'])>1){
+					for($i=0; $i <= count($data_array['output']['text']); $i++) {
+						if($i == 0 ){
+							$salida[] = $data_array['output']['text'][$i];
+						}else if($i == 1){
+							$salida[$i] = $respuesta;
+						}else{
+							$salida[$i] = $data_array['output']['text'][$i-1];
+						}
+					}
+					$data_array['output']['text']=$salida;
+				}else{
+					$data_array['output']['text'][]=$respuesta;
+				}
 			}
-		}else{
-			//creamos un objeto vacio en la sesion
-			$datos = null;
-			$this->session->set_userdata('datos', $datos);
 		}
 
 		$this->session->set_userdata('context', json_encode($data_array['context']));
@@ -72,4 +64,36 @@ class Conversation extends CI_Controller {
 		$this->output->set_header('Content-Type: application/json; charset=utf-8');
 		$this->output->set_output(json_encode($data_array));
   }
+
+	private function consulta($datos){
+		switch ($datos->pregunta) {
+			case 1:
+				if(isset($datos->region)){
+					$respuesta = "Aqui va el valor que retorna la consulta 1 por region->".$datos->region;
+				}else{
+					if(isset($datos->estado)){
+						$respuesta = "Aqui va el valor que retorna la consulta 1 por estado->".$datos->estado;
+					}else{
+						$respuesta = "Aqui va el valor que retorna la consulta 1 sin region";
+					}
+				}
+				break;
+			case 2:
+				$respuesta = "Aqui va el valor que retorna la consulta 2";
+				break;
+			case 3:
+				$respuesta = "Aqui va el valor que retorna la consulta 3";
+				break;
+			case 4:
+				$respuesta = "Aqui va el valor que retorna la consulta 4";
+				break;
+			case 5:
+				$respuesta = "Aqui va el valor que retorna la consulta 5";
+				break;
+			default:
+				$respuesta = "";
+				break;
+		}
+		return $respuesta;
+	}
 }
