@@ -30,9 +30,70 @@ class Conversation extends CI_Controller {
 				}
 			}
 		}
+
+		if(isset($data_array['output']['datos'])){
+			if(isset($data_array['output']['datos']['pregunta'])){
+				$datos = (object) ['pregunta' => $data_array['output']['datos']['pregunta']];
+				//creamos un objeto con las variables
+				foreach ( $data_array['output']['datos'] as $key => $valor ) {
+					if(!empty($valor)){
+						$datos->$key = $valor;
+					}
+				}
+				//hacemos la consulta dependiendo la pregunta
+				$respuesta = $this->consulta($datos);
+				if(count($data_array['output']['text'])>1){
+					for($i=0; $i <= count($data_array['output']['text']); $i++) {
+						if($i == 0 ){
+							$salida[] = $data_array['output']['text'][$i];
+						}else if($i == 1){
+							$salida[$i] = $respuesta;
+						}else{
+							$salida[$i] = $data_array['output']['text'][$i-1];
+						}
+					}
+					$data_array['output']['text']=$salida;
+				}else{
+					$data_array['output']['text'][]=$respuesta;
+				}
+			}
+		}
+
 		$this->session->set_userdata('context', json_encode($data_array['context']));
 		$watson->set_context($this->session->userdata('context'));
 		$this->output->set_header('Content-Type: application/json; charset=utf-8');
 		$this->output->set_output(json_encode($data_array));
   }
+
+	private function consulta($datos){
+		switch ($datos->pregunta) {
+			case 1:
+				if(isset($datos->region)){
+					$respuesta = "Aqui va el valor que retorna la consulta 1 por region->".$datos->region;
+				}else{
+					if(isset($datos->estado)){
+						$respuesta = "Aqui va el valor que retorna la consulta 1 por estado->".$datos->estado;
+					}else{
+						$respuesta = "Aqui va el valor que retorna la consulta 1 sin region";
+					}
+				}
+				break;
+			case 2:
+				$respuesta = "Aqui va el valor que retorna la consulta 2";
+				break;
+			case 3:
+				$respuesta = "Aqui va el valor que retorna la consulta 3";
+				break;
+			case 4:
+				$respuesta = "Aqui va el valor que retorna la consulta 4";
+				break;
+			case 5:
+				$respuesta = "Aqui va el valor que retorna la consulta 5";
+				break;
+			default:
+				$respuesta = "";
+				break;
+		}
+		return $respuesta;
+	}
 }
