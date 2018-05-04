@@ -1,0 +1,71 @@
+#cont_mensajes_chat {
+    height: 500px;
+    overflow-y: scroll;
+}
+#cont_enviar_mensaje_chat {
+    height: 90px;
+}
+#cont_resultados {
+    
+}
+#contenedor {
+    margin-left: 100px;
+    margin-right: 100px;
+    height: 600px;
+}
+#menu_usuario {
+}
+
+#icono_menu {
+    color: white;
+}
+
+.mensaje {
+    margin-left: 5%;
+    margin-top: 17px;
+    height: 120px;
+}
+
+.respuesta {
+    margin-right: 5%;
+    margin-top: 17px;
+    height: 120px;
+}
+
+.card-title {
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: -10px;
+    margin-bottom: 0;
+    color: white;
+}
+
+.card-text {
+    font-size: 12px;
+    color: white;
+}
+
+.contenedor_cuerpo_mensaje {
+    height: 65px;
+    overflow-y: scroll;
+}
+
+.img_chat_mensaje {
+    border-radius: 50%;
+    position: absolute;
+    bottom: -15px;
+    left: -15px;
+    z-index: 1;
+}
+
+.img_chat_respuesta {
+    border-radius: 50%;
+    position: absolute;
+    bottom: -15px;
+    right: -15px;
+    z-index: 1;
+}
+
+#form_mensaje .form-group {
+    margin-top: -10px;
+}
