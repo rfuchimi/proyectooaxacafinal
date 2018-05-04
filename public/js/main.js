@@ -1,5 +1,6 @@
 var enviar_mensaje = (function(datos) {
   console.log(datos);
+  $(".progress").show();
   $("#cont_mensajes_chat").
     append(''+
     		'<div class="card mensaje bg-info" style="width: 95%;">'+
@@ -32,6 +33,7 @@ var enviar_mensaje = (function(datos) {
           '</div>'
         );
       $("#cont_mensajes_chat").scrollTop($("#cont_mensajes_chat")[0].scrollHeight);
+      $(".progress").hide();
     })
   });
   $("#cont_mensajes_chat").scrollTop($("#cont_mensajes_chat")[0].scrollHeight);

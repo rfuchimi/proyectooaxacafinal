@@ -20,6 +20,11 @@
     color: white;
 }
 
+.saludo {
+    height: 55px;
+    width: 100%;
+}
+
 .mensaje {
     margin-left: 5%;
     margin-top: 17px;
@@ -58,6 +63,13 @@
     z-index: 1;
 }
 
+.img_chat_saludo {
+    border-radius: 50%;
+    position: absolute;
+    bottom: 3px;
+    right: 3px;
+    z-index: 1;
+}
 .img_chat_respuesta {
     border-radius: 50%;
     position: absolute;
