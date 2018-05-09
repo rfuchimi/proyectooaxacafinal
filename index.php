@@ -178,7 +178,19 @@ switch (ENVIRONMENT)
  */
 	// $assign_to_config['name_of_config_item'] = 'value of config item';
 
+/*
+|---------------------------------------------------------------
+| TimeZone 
+|---------------------------------------------------------------
+|
+| default Time Zone
+| 
 
+*/
+	if( ! ini_get('date.timezone') )
+	{
+	   date_default_timezone_set('America/Mexico_City');
+	}
 
 // --------------------------------------------------------------------
 // END OF USER CONFIGURABLE SETTINGS.  DO NOT EDIT BELOW THIS LINE
