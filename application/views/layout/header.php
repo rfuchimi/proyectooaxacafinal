@@ -2,37 +2,37 @@
 <html lang="en">
     <head>
       <title>
-          Telcel - Inicio
+          Telcel - <?= explode("_", $this->router->fetch_class())[0] ?>
       </title>
         <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
       <![endif]-->
-			<meta charset="utf-8">
-			<meta content="IE=edge" http-equiv="X-UA-Compatible">
-			<meta content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" name="viewport">
-			<meta content="#" name="description">
-			<meta content="flat ui, Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app" name="keywords">
-			<meta content="#" name="author">
-			<link href="public/assets/images/telcel_icon.png" rel="icon" type="image/x-icon">
-			<link href="https://fonts.googleapis.com/css?family=Mada:300,400,500,600,700" rel="stylesheet">
-			<link href="public/bower_components/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-			<link href="public/assets/icon/themify-icons/themify-icons.css" rel="stylesheet" type="text/css">
-			<link href="public/assets/icon/icofont/css/icofont.css" rel="stylesheet" type="text/css">
-			<link href="public/assets/pages/flag-icon/flag-icon.min.css" rel="stylesheet" type="text/css">
-			<link href="public/assets/icon/SVG-animated/svg-weather.css" rel="stylesheet" type="text/css">
-			<link href="public/assets/pages/menu-search/css/component.css" rel="stylesheet" type="text/css">
-			<link href="public/assets/pages/dashboard/horizontal-timeline/css/style.css" rel="stylesheet" type="text/css">
-			<link href="public/assets/pages/dashboard/amchart/css/amchart.css" rel="stylesheet" type="text/css">
-			<link href="public/assets/pages/widget/calender/pignose.calendar.min.css" rel="stylesheet" type="text/css">
-			<link href="public/assets/pages/flag-icon/flag-icon.min.css" rel="stylesheet" type="text/css">
-			<link href="public/assets/css/style.css" rel="stylesheet" type="text/css">
-			<link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css" rel="stylesheet">
-			<link href="public/assets/css/linearicons.css" rel="stylesheet" type="text/css">
-			<link href="public/assets/css/simple-line-icons.css" rel="stylesheet" type="text/css">
-			<link href="public/assets/css/ionicons.css" rel="stylesheet" type="text/css">
-			<link href="public/assets/css/jquery.mCustomScrollbar.css" rel="stylesheet" type="text/css">
-
+			<meta charset="utf-8" />
+			<meta content="IE=edge" http-equiv="X-UA-Compatible" />
+			<meta content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" name="viewport" />
+			<meta content="#" name="description" />
+			<meta content="flat ui, Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app" name="keywords" />
+			<meta content="#" name="author" />
+			<link href="public/assets/images/telcel_icon.png" rel="icon" type="image/x-icon" />
+			<!-- <link href="https://fonts.googleapis.com/css?family=Mada:300,400,500,600,700" rel="stylesheet" /> -->
+			<link href="public/bower_components/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+			<link href="public/assets/icon/themify-icons/themify-icons.css" rel="stylesheet" type="text/css" />
+			<link href="public/assets/icon/icofont/css/icofont.css" rel="stylesheet" type="text/css" />
+			<link href="public/assets/pages/flag-icon/flag-icon.min.css" rel="stylesheet" type="text/css" />
+			<link href="public/assets/icon/SVG-animated/svg-weather.css" rel="stylesheet" type="text/css" />
+			<link href="public/assets/pages/menu-search/css/component.css" rel="stylesheet" type="text/css" />
+			<link href="public/assets/pages/dashboard/horizontal-timeline/css/style.css" rel="stylesheet" type="text/css" />
+			<link href="public/assets/pages/dashboard/amchart/css/amchart.css" rel="stylesheet" type="text/css" />
+			<link href="public/assets/pages/widget/calender/pignose.calendar.min.css" rel="stylesheet" type="text/css" />
+			<link href="public/assets/pages/flag-icon/flag-icon.min.css" rel="stylesheet" type="text/css" />
+			<link href="public/assets/css/style.css" rel="stylesheet" type="text/css" />
+			<link href="public/assets/icon/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" />
+			<link href="public/assets/css/linearicons.css" rel="stylesheet" type="text/css" />
+			<link href="public/assets/css/simple-line-icons.css" rel="stylesheet" type="text/css" />
+			<link href="public/assets/css/ionicons.css" rel="stylesheet" type="text/css" />
+			<link href="public/assets/css/jquery.mCustomScrollbar.css" rel="stylesheet" type="text/css" />
+			<link href="public/assets/css/estilo.css" rel="stylesheet" type="text/css" />
     </head>
     <body>
         <div class="theme-loader">
@@ -52,11 +52,7 @@
                                 <i class="ti-menu">
                                 </i>
                             </a>
-                            <a class="mobile-search morphsearch-search" href="#">
-                                <i class="ti-search">
-                                </i>
-                            </a>
-                            <a href="index.html">
+                            <a href="/">
                                 <img alt="Theme-Logo" class="img-fluid" src="public/assets/images/telcel/logo.png" width="130px"/>
                             </a>
                             <a class="mobile-options">
@@ -76,6 +72,23 @@
                                         </div>
                                     </li>
                                 </ul>
+                                <ul class="nav-right">
+																	<li class="user-profile header-notification">
+																		<a href="#!" class="userlist-box">
+																			<img src="public/assets/images/chat.png" alt="User-Profile-Image">
+																			 	<span>Chat</span>
+																			<i class="ti-angle-down"></i>
+																		</a> 
+																		<!-- <div class="userlist-box">
+																			<a class="" href="#!">
+																				<img src="public/assets/images/chat.png" alt="Chat image" width="32px">
+																			</a>
+																			<div class="media-body">
+																				<div class="f-13 chat-header">Chat</div>
+																			</div>						
+																		</div> -->
+																	</li>
+																</ul>
                             </div>
                         </div>
                     </div>
@@ -107,7 +120,7 @@
                                             </span>
                                         </a>
                                         <ul class="pcoded-submenu">
-                                            <li class="active">
+                                            <li class="<?= explode('_', $this->router->fetch_class())[0] == 'Inicio' ? 'active' : '' ?>">
                                                 <a href="/">
                                                     <span class="pcoded-micon">
                                                         <i class="fa fa-address-book-o">
@@ -120,8 +133,8 @@
                                                     </span>
                                                 </a>
                                             </li>
-                                            <li class=" ">
-                                                <a href="/chat">
+                                            <li class="<?= explode('_', $this->router->fetch_class())[0] == 'Chat' ? 'active' : '' ?>">
+                                                <a href="#" class="userlist-box">
                                                     <span class="pcoded-micon">
                                                         <i class="ti-angle-right">
                                                         </i>
@@ -134,7 +147,7 @@
                                                 </a>
                                             </li>
                                             <li class=" ">
-                                                <a href="dashboard-crm.html">
+                                                <a href="#">
                                                     <span class="pcoded-micon">
                                                         <i class="ti-angle-right">
                                                         </i>
@@ -147,7 +160,7 @@
                                                 </a>
                                             </li>
                                             <li class=" ">
-                                                <a href="dashboard-analytics.html">
+                                                <a href="#">
                                                     <span class="pcoded-micon">
                                                         <i class="ti-angle-right">
                                                         </i>
@@ -171,28 +184,70 @@
                                         <div class="page-header">
                                             <div class="page-header-title">
                                                 <h4>
-                                                    <?= $this->router->fetch_class(); ?>
+                                                    <?= explode("_", $this->router->fetch_class())[0] ?>
                                                 </h4>
                                             </div>
                                             <div class="page-header-breadcrumb">
                                                 <ul class="breadcrumb-title">
                                                     <li class="breadcrumb-item">
-                                                        <a href="index.html">
+                                                        <a href="/">
                                                             <i class="icofont icofont-home">
                                                             </i>
                                                         </a>
                                                     </li>
                                                     <li class="breadcrumb-item">
-                                                        <a href="#!">
+                                                        <a href="#">
                                                             Menú
                                                         </a>
                                                     </li>
                                                     <li class="breadcrumb-item">
                                                         <a href="#!">
-                                                            Inicio
+                                                            <?= explode("_", $this->router->fetch_class())[0] ?>
                                                         </a>
                                                     </li>
                                                 </ul>
                                             </div>
                                         </div>
                                         <div class="page-body">
+
+
+<!-- Contenido del CHAT -->
+<div class="showChat_inner" id="all_chat">
+    <div class="media chat-inner-header">
+        <a class="back_chatBox">
+            <i class="icofont icofont-rounded-left">
+            </i>
+            Chat
+        </a>
+    </div>
+    <div id="cont_mensajes_chat">
+    	<div class="media chat-messages">
+	        <a class="media-left photo-table" href="#!">
+	            <img alt="Imagen watson" class="media-object img-circle m-t-5" src="public/assets/images/watson.png">
+	            </img>
+	        </a>
+	        <div class="media-body chat-menu-content">
+	            <div class="">
+	                <p class="chat-cont">
+	                    Puedes empezar por un saludo
+	                </p>
+	                <p class="chat-time">
+	                    <?= date("h:m:s") ?>
+	                </p>
+	            </div>
+	        </div>
+	    </div>
+    </div>
+    <div class="chat-reply-box p-b-20">
+        <div class="right-icon-control">
+        	<form class="form-inline" id="form_mensaje" >
+        		<input class="form-control search-text" placeholder="(Enter para enviar)" type="text" id="text_nvo_mensaje" name="query" autocomplete="off">
+        		<div class="form-icon" id="form_mensaje">
+            		<button type="submit" id="btn_send_message">
+                <i class="icofont icofont-paper-plane"></i>
+                </button>
+            </div>
+		      </form>
+        </div>
+    </div>
+</div>
