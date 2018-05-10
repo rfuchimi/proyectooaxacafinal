@@ -32,6 +32,15 @@ class Conversation extends CI_Controller {
 		}
 
 		if(isset($data_array['output']['datos'])){
+
+			if(isset($data_array['output']['datos']['datapiker'])){
+				$data_array['chat_ui']['datepicker'] = true;
+			}
+
+			if(isset($data_array['output']['datos']['button'])){
+				$data_array['chat_ui']['button'] = true;
+			}
+
 			if(isset($data_array['output']['datos']['pregunta'])){
 				$datos = (object) ['pregunta' => $data_array['output']['datos']['pregunta']];
 				//creamos un objeto con las variables
