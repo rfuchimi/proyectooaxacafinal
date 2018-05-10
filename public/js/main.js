@@ -28,6 +28,8 @@ var enviar_mensaje = (function(datos) {
               '<div class="contenedor_cuerpo_mensaje">'+
                   '<p class="card-text">' + data.output.text[0] + '</p>'+
               '</div>'+
+              '<button class="btn btn-default">Gráfica</button> '+
+              '<button class="btn btn-default">Mapa</button>'+
             '</div>'+
             '<img src="public/img/ibm-watson_logo.png" width="45px" class="img_chat_respuesta">'+
           '</div>'
