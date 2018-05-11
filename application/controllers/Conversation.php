@@ -33,8 +33,12 @@ class Conversation extends CI_Controller {
 
 		if(isset($data_array['output']['datos'])){
 
-			if(isset($data_array['output']['datos']['datapiker'])){
+			if(isset($data_array['output']['datos']['pintaDate'])){
 				$data_array['chat_ui']['datepicker'] = true;
+
+				//Fechas estaticas en lo que se realiza con los datapiker en la interfaz
+				$data_array['context']["f_inicial"] = '2017-12-15' ;
+				$data_array['context']["f_final"] = '2018-01-15';
 			}
 
 			if(isset($data_array['output']['datos']['button'])){

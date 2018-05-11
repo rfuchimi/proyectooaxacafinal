@@ -43,7 +43,7 @@ $(document).ready(function() {
     //Aquí solicitamos la respuesta
     $.ajax({
       type: "POST",
-      url: "/preguntar",
+      url: "preguntar",
       data: datos,
       success: (function(data) {
         console.log(data);
