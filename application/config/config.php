@@ -33,10 +33,10 @@ spl_autoload_register(function($classname){
 |
 */
 /*------------- local --------------------------------------------------------*/
-//$config['base_url'] = '/proyectooaxacafinal/';
+$config['base_url'] = '/proyectooaxacafinal/';
 /*------------- local --------------------------------------------------------*/
 /*------------- bluemix ------------------------------------------------------*/
-$config['base_url'] = 'https://oaxaca-proyecto-final.mybluemix.net/';
+//$config['base_url'] = 'https://oaxaca-proyecto-final.mybluemix.net/';
 /*------------- bluemix ------------------------------------------------------*/
 
 /*
