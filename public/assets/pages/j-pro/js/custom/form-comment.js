@@ -1,1 +1,0 @@
-"use strict";$(document).ready(function(){var elemsingle=document.querySelector('.js-single');var switchery=new Switchery(elemsingle,{color:'#1abc9c',jackColor:'#fff'});});
