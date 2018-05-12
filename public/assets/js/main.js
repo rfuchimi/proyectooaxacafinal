@@ -16,6 +16,8 @@ $(document).ready(function() {
     return h + ":" + m + ":" + s;
   }
 
+  $("#hora_inicio").text(getTime());
+
   var enviar_mensaje = (function(datos) {
     console.log(datos);
     $("#cont_mensajes_chat").
@@ -43,7 +45,11 @@ $(document).ready(function() {
     //Aquí solicitamos la respuesta
     $.ajax({
       type: "POST",
+<<<<<<< HEAD
+      url: BASE_URL + "preguntar",
+=======
       url: "preguntar",
+>>>>>>> 625056c84bc60943ca840a7ac501e581f65b3c67
       data: datos,
       success: (function(data) {
         console.log(data);

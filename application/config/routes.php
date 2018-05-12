@@ -55,3 +55,5 @@ $route['translate_uri_dashes'] = FALSE;
 $route['inicio'] = 'Inicio_controller';
 $route['chat'] = 'Chat_controller';
 $route['preguntar']['POST'] = 'Conversation/conversation';
+$route['login']['POST'] = 'Login_controller/login';
+$route['logout'] = 'Login_controller/logout';

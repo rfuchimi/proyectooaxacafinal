@@ -32,9 +32,19 @@
 			<link href="public/assets/css/simple-line-icons.css" rel="stylesheet" type="text/css" />
 			<link href="public/assets/css/ionicons.css" rel="stylesheet" type="text/css" />
 			<link href="public/assets/css/jquery.mCustomScrollbar.css" rel="stylesheet" type="text/css" />
+
+            <link rel="stylesheet" type="text/css" href="public/bower_components/pnotify/css/pnotify.css">
+            <link rel="stylesheet" type="text/css" href="public/bower_components/pnotify/css/pnotify.brighttheme.css">
+            <link rel="stylesheet" type="text/css" href="public/bower_components/pnotify/css/pnotify.buttons.css">
+            <link rel="stylesheet" type="text/css" href="public/bower_components/pnotify/css/pnotify.history.css">
+            <link rel="stylesheet" type="text/css" href="public/bower_components/pnotify/css/pnotify.mobile.css">
+
 			<link href="public/assets/css/estilo.css" rel="stylesheet" type="text/css" />
     </head>
     <body>
+        <script type="text/javascript">
+            var BASE_URL = '<?= base_url() ?>';
+        </script>
         <div class="theme-loader">
             <div class="ball-scale">
                 <div>
@@ -73,22 +83,58 @@
                                     </li>
                                 </ul>
                                 <ul class="nav-right">
-																	<li class="user-profile header-notification">
-																		<a href="#!" class="userlist-box">
-																			<img src="public/assets/images/chat.png" alt="User-Profile-Image">
-																			 	<span>Chat</span>
-																			<i class="ti-angle-down"></i>
-																		</a> 
-																		<!-- <div class="userlist-box">
-																			<a class="" href="#!">
-																				<img src="public/assets/images/chat.png" alt="Chat image" width="32px">
-																			</a>
-																			<div class="media-body">
-																				<div class="f-13 chat-header">Chat</div>
-																			</div>						
-																		</div> -->
-																	</li>
-																</ul>
+									<li class="user-profile header-notification">
+									    <a href="#!">
+									        <img alt="User-Profile-Image" src="public/assets/images/user.png">
+									            <span>
+									                <?= isset($_SESSION['id']) ? $_SESSION['email'] : 'Ingresa' ?>
+									            </span>
+									            <i class="ti-angle-down">
+									            </i>
+									        </img>
+									    </a>
+									    <ul class="show-notification profile-notification">
+                                            <?php if(isset($_SESSION['id'])) { ?>
+									        <li>
+									            <a href="#!">
+									                <i class="ti-settings">
+									                </i>
+									                Ajustes
+									            </a>
+									        </li>
+									        <li>
+									            <a href="#">
+									                <i class="ti-user">
+									                </i>
+									                Perfil
+									            </a>
+									        </li>
+                                            <?php } ?>
+									        <li>
+									            <a href="<?= isset($_SESSION['id']) ? '/logout' : '#' ?>" <?= !isset($_SESSION['id']) ? 'data-toggle="modal" data-target="#sign-in"' : '' ?> >
+									                <i class="ti-layout-sidebar-left">
+									                </i>
+									                <?= isset($_SESSION['id']) ? 'Salir' : 'Identifícate' ?>
+									            </a>
+									        </li>
+									    </ul>
+									</li>
+                                    <li class="user-profile header-notification">
+                                        <a href="#!" class="userlist-box">
+                                            <img src="public/assets/images/chat.png" alt="User-Profile-Image">
+                                                <span>Chat</span>
+                                            <i class="ti-angle-down"></i>
+                                        </a> 
+                                        <!-- <div class="userlist-box">
+                                            <a class="" href="#!">
+                                                <img src="public/assets/images/chat.png" alt="Chat image" width="32px">
+                                            </a>
+                                            <div class="media-body">
+                                                <div class="f-13 chat-header">Chat</div>
+                                            </div>                      
+                                        </div> -->
+                                    </li>
+								</ul>
                             </div>
                         </div>
                     </div>
@@ -159,19 +205,6 @@
                                                     </span>
                                                 </a>
                                             </li>
-                                            <li class=" ">
-                                                <a href="#">
-                                                    <span class="pcoded-micon">
-                                                        <i class="ti-angle-right">
-                                                        </i>
-                                                    </span>
-                                                    <span class="pcoded-mtext" data-i18n="nav.dash.analytics">
-                                                        Salir
-                                                    </span>
-                                                    <span class="pcoded-mcaret">
-                                                    </span>
-                                                </a>
-                                            </li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -215,7 +248,7 @@
 <div class="showChat_inner" id="all_chat">
     <div class="media chat-inner-header">
         <a class="back_chatBox">
-            <i class="icofont icofont-rounded-left">
+            <i class="icofont icofont-rounded-right">
             </i>
             Chat
         </a>
@@ -229,10 +262,7 @@
 	        <div class="media-body chat-menu-content">
 	            <div class="">
 	                <p class="chat-cont">
-	                    Puedes empezar por un saludo
-	                </p>
-	                <p class="chat-time">
-	                    <?= date("h:m:s") ?>
+	                    Puedes empezar con un saludo
 	                </p>
 	            </div>
 	        </div>
@@ -243,7 +273,7 @@
         	<form class="form-inline" id="form_mensaje" >
         		<input class="form-control search-text" placeholder="(Enter para enviar)" type="text" id="text_nvo_mensaje" name="query" autocomplete="off">
         		<div class="form-icon" id="form_mensaje">
-            		<button type="submit" id="btn_send_message">
+            		<button class="" type="submit" id="btn_send_message">
                 <i class="icofont icofont-paper-plane"></i>
                 </button>
             </div>
@@ -251,3 +281,70 @@
         </div>
     </div>
 </div>
+
+<?php if (!isset($_SESSION['id'])) { ?>
+<!-- Modal para Iniciar sesión -->
+<div class="modal fade" id="sign-in" role="dialog">
+    <div class="modal-dialog">
+        <div class="login-card card-block login-card-modal">
+            <form class="md-float-material" method="POST" action="/login">
+                <div class="auth-box">
+                    <div class="row m-b-20">
+                        <div class="col-md-12">
+                            <div class="text-center">
+                                <img alt="logo.png" src="public/assets/images/telcel/logo.png" width="180px">
+                                </img>
+                            </div>
+                            <h3 class="text-center txt-primary">
+                                Identificarse
+                            </h3>
+                        </div>
+                    </div>
+                    <hr/>
+                    <div class="input-group">
+                        <input class="form-control" placeholder="Tu email" type="email" name="email">
+                            <span class="md-line">
+                            </span>
+                        </input>
+                    </div>
+                    <div class="input-group">
+                        <input class="form-control" placeholder="Contraseña" type="password" name="password">
+                            <span class="md-line">
+                            </span>
+                        </input>
+                    </div>
+                    <div class="row m-t-25 text-left">
+                        <div class="col-sm-6 col-xs-12">
+                            <div class="checkbox-fade fade-in-primary">
+                                <label>
+                                    <input type="checkbox" value="">
+                                        <span class="cr">
+                                            <i class="cr-icon icofont icofont-ui-check txt-primary">
+                                            </i>
+                                        </span>
+                                        <span class="text-inverse">
+                                            Recordar
+                                        </span>
+                                    </input>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xs-12 forgot-phone text-right">
+                            <a class="text-right f-w-600 text-inverse" href="auth-reset-password.html">
+                                ¿Olvidasre tu constraseña?
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row m-t-15">
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-primary btn-md btn-block waves-effect text-center" type="button">
+                                Entrar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<?php } ?>

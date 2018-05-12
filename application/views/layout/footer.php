@@ -85,6 +85,55 @@
         <script src="public/assets/js/demo-12.js"></script>
         <script src="public/assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
         <script src="public/assets/js/jquery.mousewheel.min.js"></script>
+        <script type="text/javascript" src="public/bower_components/pnotify/js/pnotify.js"></script>
+        <script type="text/javascript" src="public/bower_components/pnotify/js/pnotify.desktop.js"></script>
+        <script type="text/javascript" src="public/bower_components/pnotify/js/pnotify.buttons.js"></script>
+        <script type="text/javascript" src="public/bower_components/pnotify/js/pnotify.confirm.js"></script>
+        <script type="text/javascript" src="public/bower_components/pnotify/js/pnotify.callbacks.js"></script>
+        <script type="text/javascript" src="public/bower_components/pnotify/js/pnotify.animate.js"></script>
+        <script type="text/javascript" src="public/bower_components/pnotify/js/pnotify.history.js"></script>
+        <script type="text/javascript" src="public/bower_components/pnotify/js/pnotify.mobile.js"></script>
+        <script type="text/javascript" src="public/bower_components/pnotify/js/pnotify.nonblock.js"></script>
         <script src="public/assets/js/main.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                <?php
+                if ($this->session->flashdata('notify')) {
+                    if ($_SESSION['notify']['status'] == 0) { ?>
+                        console.log("notif no");
+                        $(function(){
+                            new PNotify({
+                                title: 'Error',
+                                text: "<?= $_SESSION['notify']['message'] ?>",
+                                icon: 'icofont icofont-info-circle',
+                                type: 'default'
+                            })
+                        });
+                    <?php } elseif($_SESSION['notify']['status'] == 1) { ?>
+                        console.log("notif yes");
+                        $(function(){
+                            new PNotify({
+                                title: 'Hola',
+                                text: "<?= $_SESSION['notify']['message'] ?>",
+                                icon: 'icofont icofont-info-circle',
+                                type: 'success'
+                            })
+                        });
+                    <?php } elseif($_SESSION['notify']['status'] == 2) { ?>
+                        console.log("notif yes");
+                        $(function(){
+                            new PNotify({
+                                title: 'Bye',
+                                text: "<?= $_SESSION['notify']['message'] ?>",
+                                icon: 'icofont icofont-info-circle',
+                                type: 'default'
+                            })
+                        });
+                    <?php }
+                } else { ?>
+                    console.log("no notif");
+                <?php }?>
+            });
+        </script>
     </body>
 </html>
