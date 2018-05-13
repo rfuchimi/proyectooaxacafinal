@@ -71,3 +71,24 @@ WHERE ven_fecha BETWEEN '2017-12-01' AND '2017-12-31'
 AND reg_nombre = 'R3' AND pln_nombre='TELCEL PREPAGO'
 AND v.fve_id <> va.fve_id ;
 
+
+
+
+/* 5.	Cuál es la región de portabilidad prepago con el modo de suscripción prepago que en diciembre de 2017
+	más megabytes descargó y cuántos megabytes fueron.
+a)	Cuál es la región con el modo de suscripción prepago que mas megabytes descargo y cuantos megabytes fueron.
+ */
+SELECT reg_id, reg_nombre, SUM(vin_duracion)TotalMG
+FROM cat_venta
+JOIN cat_cuenta USING(cta_id)
+JOIN cat_plan USING(pln_id) # plan prepago
+JOIN cat_factura USING(ven_id)
+JOIN cat_estado USING(est_id)
+JOIN cat_region USING(reg_id)
+JOIN vin_movimientoCuenta USING(cta_id) 
+WHERE DATE(vin_fecha) BETWEEN '2017-12-01' AND '2017-12-31'
+AND pln_id=3 # telcel pregado
+AND mov_id = 6 # navegacion internet
+group by reg_id 
+order by SUM(vin_duracion) DESC 
+LIMIT 1;
