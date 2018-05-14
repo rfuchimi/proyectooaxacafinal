@@ -16,104 +16,317 @@
 $(".mapcontainer").mapael(
 {
     "map": {
-        "name" : "mexico",
+        "name": "mexico",
         "zoom": {
-            "enabled": true,
+            "enabled": "true",
             "maxLevel": 10
         }
     },
-    legend : {
-        area : {
-            display : true,
-            title :"Regiones de venta Telcel", 
-            mode:"horizontal",
-            slices : [
+    "legend": {
+        "area": {
+            "display": true,
+            "title": "REGIONES DE VENTA TELCEL",
+            "mode": "horizontal",
+            "slices": [
                 {
-                    max : 1,
-                    min : 1, 
-                    attrs : {
-                        fill : "#cfb3b2"
+                    "max": "1",
+                    "min": "1",
+                    "attrs": {
+                        "fill": "#CFB3B2"
                     },
-                    label :"R1 BCN, BCS",
-                    width: 10
+                    "label": "R1 - BCN, BCS"
                 },
                 {
-                    max : 2,
-                    min : 2, 
-                    attrs : {
-                        fill : "#fdffb1"
+                    "max": "2",
+                    "min": "2",
+                    "attrs": {
+                        "fill": "#FDFFB1"
                     },
-                    label :"R2 Sonora y sinaloa"
+                    "label": "R2 - SIN, SON"
                 },
                 {
-                    max : 3,
-                    min : 3, 
-                    attrs : {
-                        fill : "#acefff"
+                    "max": "3",
+                    "min": "3",
+                    "attrs": {
+                        "fill": "#ACEFFF"
                     },
-                    label :"R3 Chihuahua y Durango"
+                    "label": "R3 - CHH, DUR"
                 },
                 {
-                    max : 4,
-                    min : 4, 
-                    attrs : {
-                        fill : "#83cd9a"
+                    "max": "4",
+                    "min": "4",
+                    "attrs": {
+                        "fill": "#83CD9A"
                     },
-                    label :"R4 Coahuila, Nuevo León y Tamaulipas"
+                    "label": "R4 - COA, NLE, TAM"
                 },
                 {
-                    max : 5,
-                    min : 5, 
-                    attrs : {
-                        fill : "#cb8cb7"
+                    "max": "5",
+                    "min": "5",
+                    "attrs": {
+                        "fill": "#CB8CB7"
                     },
-                    label :"R5 Nayarit, Jalisco, Colima y Michoacán"
+                    "label": "R5 - COL, HID, JAL, MIC, NAY"
                 },
                 {
-                    max : 6,
-                    min : 6, 
-                    attrs : {
-                        fill : "#96b8de"
+                    "max": "6",
+                    "min": "6",
+                    "attrs": {
+                        "fill": "#96B8DE"
                     },
-                    label :"R6 Zacatecas, San Luis Potosi, Aguascalientes, Guanajuato y Queretaro Norte"
+                    "label": "R6 - AGU, GUA, QUE, SLP, ZAC"
                 },
                 {
-                    max : 7,
-                    min : 7, 
-                    attrs : {
-                        fill : "#c5b0fe"
+                    "max": "7",
+                    "min": "7",
+                    "attrs": {
+                        "fill": "#C5B0FE"
                     },
-                    label :"R7 Guerrero, Tlaxcala, Puebla, Veracruz, y Oaxaca"
+                    "label": "R7 - GRO, OAX, PUE, TLA, VER"
                 },
                 {
-                    max : 8,
-                    min : 8, 
-                    attrs : {
-                        fill : "#f6949c"
+                    "max": "8",
+                    "min": "8",
+                    "attrs": {
+                        "fill": "#F6949C"
                     },
-                    label :"R8 Tabasco, Chiapas, Campeche, Yucatán y Quintana Roo"
+                    "label": "R8 - CAM, CHP, ROO, TAB, YUC"
                 },
                 {
-                    max : 9,
-                    min : 9, 
-                    attrs : {
-                        fill : "#01e751"
+                    "max": "9",
+                    "min": "9",
+                    "attrs": {
+                        "fill": "#01E751"
                     },
-                    label :"R9 Queretaro Sur, Hidalgo, Morelos, Estado de México y Ciudad de México"
+                    "label": "R9 - CMX, MEX, MOR"
                 }
             ]
         }
     },
-    areas: {
-        "hidalgo": {
-            value: "9",
-            href : "#",
-            tooltip: {content : "<span style=\"font-weight:bold;\">R9</span><br />Hidalgo"}
+    "areas": {
+        "AGUASCALIENTES": {
+            "value": "6",
+            "href": "#",
+            "tooltip": {
+                "content": "6<br>AGUASCALIENTES"
+            }
         },
-         "puebla": {
-            value: "8",
-            href : "#",
-            tooltip: {content : "<span style=\"font-weight:bold;\">R9</span><br />Hidalgo"}
+        "BAJA CALIFORNIA NORTE": {
+            "value": "1",
+            "href": "#",
+            "tooltip": {
+                "content": "1<br>BAJA CALIFORNIA NORTE"
+            }
+        },
+        "BAJA CALIFORNIA SUR": {
+            "value": "1",
+            "href": "#",
+            "tooltip": {
+                "content": "1<br>BAJA CALIFORNIA SUR"
+            }
+        },
+        "CAMPECHE": {
+            "value": "8",
+            "href": "#",
+            "tooltip": {
+                "content": "8<br>CAMPECHE"
+            }
+        },
+        "CHIAPAS": {
+            "value": "8",
+            "href": "#",
+            "tooltip": {
+                "content": "8<br>CHIAPAS"
+            }
+        },
+        "CHIHUAHUA": {
+            "value": "3",
+            "href": "#",
+            "tooltip": {
+                "content": "3<br>CHIHUAHUA"
+            }
+        },
+        "CIUDAD DE MEXICO": {
+            "value": "9",
+            "href": "#",
+            "tooltip": {
+                "content": "9<br>CIUDAD DE MEXICO"
+            }
+        },
+        "COAHUILA DE ZARAGOZA": {
+            "value": "4",
+            "href": "#",
+            "tooltip": {
+                "content": "4<br>COAHUILA DE ZARAGOZA"
+            }
+        },
+        "COLIMA": {
+            "value": "5",
+            "href": "#",
+            "tooltip": {
+                "content": "5<br>COLIMA"
+            }
+        },
+        "DURANGO": {
+            "value": "3",
+            "href": "#",
+            "tooltip": {
+                "content": "3<br>DURANGO"
+            }
+        },
+        "GUANAJUATO": {
+            "value": "6",
+            "href": "#",
+            "tooltip": {
+                "content": "6<br>GUANAJUATO"
+            }
+        },
+        "GUERRERO": {
+            "value": "7",
+            "href": "#",
+            "tooltip": {
+                "content": "7<br>GUERRERO"
+            }
+        },
+        "HIDALGO": {
+            "value": "5",
+            "href": "#",
+            "tooltip": {
+                "content": "5<br>HIDALGO"
+            }
+        },
+        "JALISCO": {
+            "value": "5",
+            "href": "#",
+            "tooltip": {
+                "content": "5<br>JALISCO"
+            }
+        },
+        "MEXICO": {
+            "value": "9",
+            "href": "#",
+            "tooltip": {
+                "content": "9<br>MEXICO"
+            }
+        },
+        "MICHOACAN DE OCAMPO": {
+            "value": "5",
+            "href": "#",
+            "tooltip": {
+                "content": "5<br>MICHOACAN DE OCAMPO"
+            }
+        },
+        "MORELOS": {
+            "value": "9",
+            "href": "#",
+            "tooltip": {
+                "content": "9<br>MORELOS"
+            }
+        },
+        "NAYARIT": {
+            "value": "5",
+            "href": "#",
+            "tooltip": {
+                "content": "5<br>NAYARIT"
+            }
+        },
+        "NUEVO LEON": {
+            "value": "4",
+            "href": "#",
+            "tooltip": {
+                "content": "4<br>NUEVO LEON"
+            }
+        },
+        "OAXACA": {
+            "value": "7",
+            "href": "#",
+            "tooltip": {
+                "content": "7<br>OAXACA"
+            }
+        },
+        "PUEBLA": {
+            "value": "7",
+            "href": "#",
+            "tooltip": {
+                "content": "7<br>PUEBLA"
+            }
+        },
+        "QUERETARO DE ARTEAGA": {
+            "value": "6",
+            "href": "#",
+            "tooltip": {
+                "content": "6<br>QUERETARO DE ARTEAGA"
+            }
+        },
+        "QUINTANA ROO": {
+            "value": "8",
+            "href": "#",
+            "tooltip": {
+                "content": "8<br>QUINTANA ROO"
+            }
+        },
+        "SAN LUIS POTOSI": {
+            "value": "6",
+            "href": "#",
+            "tooltip": {
+                "content": "6<br>SAN LUIS POTOSI"
+            }
+        },
+        "SINALOA": {
+            "value": "2",
+            "href": "#",
+            "tooltip": {
+                "content": "2<br>SINALOA"
+            }
+        },
+        "SONORA": {
+            "value": "2",
+            "href": "#",
+            "tooltip": {
+                "content": "2<br>SONORA"
+            }
+        },
+        "TABASCO": {
+            "value": "8",
+            "href": "#",
+            "tooltip": {
+                "content": "8<br>TABASCO"
+            }
+        },
+        "TAMAULIPAS": {
+            "value": "4",
+            "href": "#",
+            "tooltip": {
+                "content": "4<br>TAMAULIPAS"
+            }
+        },
+        "TLAXCALA": {
+            "value": "7",
+            "href": "#",
+            "tooltip": {
+                "content": "7<br>TLAXCALA"
+            }
+        },
+        "VERACRUZ": {
+            "value": "7",
+            "href": "#",
+            "tooltip": {
+                "content": "7<br>VERACRUZ"
+            }
+        },
+        "YUCATAN": {
+            "value": "8",
+            "href": "#",
+            "tooltip": {
+                "content": "8<br>YUCATAN"
+            }
+        },
+        "ZACATECAS": {
+            "value": "6",
+            "href": "#",
+            "tooltip": {
+                "content": "6<br>ZACATECAS"
+            }
         }
     }
 }

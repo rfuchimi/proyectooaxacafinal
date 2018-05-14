@@ -57,3 +57,4 @@ $route['chat'] = 'Chat_controller';
 $route['preguntar']['POST'] = 'Conversation/conversation';
 $route['login']['POST'] = 'Login_controller/login';
 $route['logout'] = 'Login_controller/logout';
+$route['mapa'] = 'GeneraJSON';
