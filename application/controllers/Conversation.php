@@ -144,7 +144,27 @@ class Conversation extends CI_Controller {
 				$respuesta["text"] = "Aqui va el valor que retorna la consulta 3";
 				break;
 			case 4:
-				$respuesta["text"] = "Aqui va el valor que retorna la consulta 4";
+				$num_mes=$this->numMes($datos->mes);
+				$sql = "
+					SELECT num_numero, reg_nombre, num_fechaActivacion, pln_nombre, v.fve_id venta, va.fve_id activacion
+					FROM cat_factura
+						JOIN cat_venta v USING (ven_id)
+						JOIN cat_localidad USING (loc_id, mun_id,est_id)
+						JOIN cat_estado USING (est_id)
+						JOIN cat_region USING (reg_id)
+						JOIN cat_cuenta USING (cta_id)
+						JOIN cat_numero USING (num_id)
+						JOIN cat_plan USING (pln_id)
+						JOIN cat_FuerzaVenta USING (fve_id)
+						JOIN cat_activacionVenta va USING (cta_id)
+					WHERE MONTH(fac_fecha) = $num_mes AND YEAR(fac_fecha) = $datos->anio
+						AND reg_nombre = '$datos->region' AND pln_nombre='TELCEL PREPAGO'
+						AND v.fve_id <> va.fve_id
+						ORDER BY num_fechaActivacion;
+				";
+				$query=$this->db->query($sql);
+				$respuesta["text"]= "Las lineas que se portaron en $datos->mes de $datos->anio y de la $datos->region se muestran en la tabla";
+				$respuesta["data"] = $query->result();
 				break;
 			case 5:
 				$respuesta["text"] = "Aqui va el valor que retorna la consulta 5";
