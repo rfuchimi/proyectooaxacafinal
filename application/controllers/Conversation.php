@@ -32,13 +32,14 @@ class Conversation extends CI_Controller {
 		}
 
 		if(isset($data_array['output']['datos'])){
-
 			if(isset($data_array['output']['datos']['pintaDate'])){
-				$data_array['chat_ui']['datepicker'] = true;
-
-				//Fechas estaticas en lo que se realiza con los datapiker en la interfaz
-				$data_array['context']["f_inicial"] = '2017-12-15' ;
-				$data_array['context']["f_final"] = '2018-01-15';
+				if($data_array['output']['datos']['pintaDate'] == 'inicial'){
+					$data_array['chat_ui']['datepicker'] = true;
+					$data_array['context']["f_inicial"] = '2018-01-01' ;
+				}elseif ($data_array['output']['datos']['pintaDate'] == 'final'){
+					$data_array['chat_ui']['datepicker'] = true;
+					$data_array['context']["f_final"] = '2018-01-15' ;
+				}
 			}
 
 			if(isset($data_array['output']['datos']['button'])){
@@ -70,7 +71,7 @@ class Conversation extends CI_Controller {
 					$data_array['output']['text'][]=$respuesta['text'];
 				}
 				if(isset($respuesta['data'])){
-					$data_array['charts'] = $respuesta['data'];	
+					$data_array['charts'] = $respuesta['data'];
 				}
 
 			}
@@ -95,17 +96,17 @@ class Conversation extends CI_Controller {
 						$respuesta["text"] = "Aqui va el valor que retorna la consulta 1 por estado->".$datos->estado;
 					}else{
 						$sql = "
-						SELECT  tfv_nombre, ven_monto
-						FROM cat_venta
-							JOIN cat_FuerzaVenta USING (fve_id)
-							JOIN cat_TipoFuerzaVenta USING (tfv_id)
-							JOIN cat_cuenta USING (cta_id)
-							JOIN cat_numero USING (num_id)
-							JOIN cat_plan USING (pln_id)
-						WHERE MONTH(ven_fecha) = $num_mes AND YEAR(ven_fecha) = $datos->anio
-							AND pln_nombre = 'TELCEL PREPAGO'
-						ORDER BY ven_monto DESC
-						LIMIT $top;
+							SELECT  tfv_nombre, ven_monto
+							FROM cat_venta
+								JOIN cat_FuerzaVenta USING (fve_id)
+								JOIN cat_TipoFuerzaVenta USING (tfv_id)
+								JOIN cat_cuenta USING (cta_id)
+								JOIN cat_numero USING (num_id)
+								JOIN cat_plan USING (pln_id)
+							WHERE MONTH(ven_fecha) = $num_mes AND YEAR(ven_fecha) = $datos->anio
+								AND pln_nombre = 'TELCEL PREPAGO'
+							ORDER BY ven_monto DESC
+							LIMIT $top;
 						";
 						$query=$this->db->query($sql);
 						$respuesta["text"]= "El top $top del fueza de venta en ".$datos->mes." de ".$datos->anio." se muestra en la grafica";
@@ -114,7 +115,30 @@ class Conversation extends CI_Controller {
 				}
 				break;
 			case 2:
-				$respuesta["text"] = "Aqui va el valor que retorna la consulta 2";
+				$num_mes=$this->numMes($datos->mes);
+				$f_inicial = $datos->fechas['f_inicial'];
+				$f_final = $datos->fechas['f_final'];
+				$sql = "
+					SELECT reg_id, reg_nombre, count(num_id) totalLineas, fac_fecha,
+						vin_observacion Movimiento, vin_fecha fechaMovimiento
+					FROM cat_venta
+						JOIN cat_cuenta USING(cta_id)
+						JOIN cat_plan USING(pln_id)
+						JOIN vin_movimientoCuenta USING(cta_id)
+						JOIN cat_movimiento USING(mov_id)
+						JOIN cat_factura USING(ven_id)
+						JOIN cat_estado USING(est_id)
+						JOIN cat_region USING(reg_id)
+						JOIN cat_coordenada USING(est_id)
+					WHERE MONTH(fac_fecha) = $num_mes AND YEAR(fac_fecha) = $datos->anio
+						AND vin_fecha BETWEEN '$f_inicial' AND '$f_final'
+						AND pln_id=3 # telcel pregado
+						AND mov_id=1 AND vin_observacion='PRIMERA RECARGA'
+					GROUP BY reg_id ORDER BY reg_id;
+				";
+				$query=$this->db->query($sql);
+				$respuesta["text"]= "El total de lineas por region se muestra en la grafica";
+				$respuesta["data"] = $query->result();
 				break;
 			case 3:
 				$respuesta["text"] = "Aqui va el valor que retorna la consulta 3";
