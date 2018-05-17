@@ -70,8 +70,10 @@ class Conversation extends CI_Controller {
 				}else{
 					$data_array['output']['text'][]=$respuesta['text'];
 				}
-				if(isset($respuesta['data'])){
-					$data_array['charts'] = $respuesta['data'];
+				if(isset($respuesta['datos'])){
+					$data_array['chat_ui']['datos'] = $respuesta['datos'];
+				}else{
+					$data_array['chat_ui']['datos'] = 'Error';
 				}
 
 			}
@@ -96,7 +98,7 @@ class Conversation extends CI_Controller {
 						$respuesta["text"] = "Aqui va el valor que retorna la consulta 1 por estado->".$datos->estado;
 					}else{
 						$sql = "
-							SELECT  tfv_nombre, ven_monto
+							SELECT tfv_id, fve_nombre, ven_fecha, ven_monto, pln_nombre
 							FROM cat_venta
 								JOIN cat_FuerzaVenta USING (fve_id)
 								JOIN cat_TipoFuerzaVenta USING (tfv_id)
@@ -109,9 +111,12 @@ class Conversation extends CI_Controller {
 							LIMIT $top;
 						";
 						$query=$this->db->query($sql);
-						$respuesta["text"]= "El top $top del fueza de venta en ".$datos->mes." de ".$datos->anio." se muestra en la gráfica";
-						$respuesta["data"] = $query->result();
+						$respuesta["text"]= "El top $top de fueza de venta en ".$datos->mes." de ".$datos->anio." se muestra en la gráfica";
 					}
+					$datos->top = $top;
+					$datos->mes = $num_mes;
+					$respuesta["datos"] = $datos;
+					$respuesta["datos"] = $query->result();
 				}
 				break;
 			case 2:
@@ -138,7 +143,9 @@ class Conversation extends CI_Controller {
 				";
 				$query=$this->db->query($sql);
 				$respuesta["text"]= "El total de lineas por region se muestra en la gráfica";
-				$respuesta["data"] = $query->result();
+				$datos->mes = $num_mes;
+				$respuesta["datos"] = $datos;
+				//$respuesta["datos"] = $query->result();
 				break;
 			case 3:
 				$num_mes=$this->numMes($datos->mes);
@@ -161,10 +168,13 @@ class Conversation extends CI_Controller {
 				";
 				$query=$this->db->query($sql);
 				$respuesta["text"]= "El total de lineas por region con rol $datos->rol se muestra en la gráfica";
-				$respuesta["data"] = $query->result();
+				$datos->mes = $num_mes;
+				$respuesta["datos"] = $datos;
+				//$respuesta["datos"] = $query->result();
 				break;
 			case 4:
-				$num_mes=$this->numMes($datos->mes);
+				$num_mes = $this->numMes($datos->mes);
+				$operador = $this->operadorCondicional($datos->condicional);
 				$sql = "
 					SELECT num_numero, reg_nombre, num_fechaActivacion, pln_nombre, v.fve_id venta, va.fve_id activacion
 					FROM cat_factura
@@ -177,17 +187,42 @@ class Conversation extends CI_Controller {
 						JOIN cat_plan USING (pln_id)
 						JOIN cat_FuerzaVenta USING (fve_id)
 						JOIN cat_activacionVenta va USING (cta_id)
-					WHERE MONTH(fac_fecha) = $num_mes AND YEAR(fac_fecha) = $datos->anio
+					WHERE MONTH(ven_fecha) = $num_mes AND YEAR(ven_fecha) = $datos->anio
 						AND reg_nombre = '$datos->region' AND pln_nombre='TELCEL PREPAGO'
-						AND v.fve_id <> va.fve_id
+						AND v.fve_id $operador va.fve_id
 						ORDER BY num_fechaActivacion;
 				";
 				$query=$this->db->query($sql);
 				$respuesta["text"]= "Las lineas que se portaron en $datos->mes de $datos->anio y de la $datos->region se muestran en la tabla";
-				$respuesta["data"] = $query->result();
+				$datos->mes = $num_mes;
+				$datos->condicional = $operador;
+				$respuesta["datos"] = $datos;
+				//$respuesta["datos"] = $query->result();
 				break;
 			case 5:
-				$respuesta["text"] = "Aqui va el valor que retorna la consulta 5";
+				$num_mes=$this->numMes($datos->mes);
+				$sql = "
+					SELECT reg_id, reg_nombre, SUM(vin_duracion)TotalMG
+					FROM cat_venta
+						JOIN cat_cuenta USING(cta_id)
+						JOIN cat_plan USING(pln_id) # plan prepago
+						JOIN cat_factura USING(ven_id)
+						JOIN cat_estado USING(est_id)
+						JOIN cat_region USING(reg_id)
+						JOIN vin_movimientoCuenta USING(cta_id)
+					WHERE MONTH(vin_fecha) = $num_mes AND YEAR(vin_fecha) = $datos->anio
+						AND pln_id=3 # telcel pregado
+						AND mov_id = 6 # navegacion internet
+					group by reg_id
+					order by SUM(vin_duracion) DESC
+					LIMIT 1;
+				";
+				$query=$this->db->query($sql);
+				$result= $query->result();
+				$result = $result[0];
+				$respuesta["text"]= "La region $result->reg_id es la que descargo mas megabytes con la cantidad de $result->TotalMG megabytes";
+				$datos->mes = $num_mes;
+				$respuesta["datos"] = $datos;
 				break;
 			default:
 				$respuesta["text"] = "No hay respuesta para la pregunta".$datos->pregunta;
@@ -248,6 +283,18 @@ class Conversation extends CI_Controller {
 				break;
 		}
 		return $num;
+	}
+
+	private function operadorCondicional($condicional){
+		switch ($condicional) {
+			case 'diferente':
+				$operador = '<>';
+				break;
+			case 'igual':
+				$operador = '=';
+				break;
+		}
+		return $operador;
 	}
 
 }
