@@ -34,10 +34,10 @@ class Conversation extends CI_Controller {
 		if(isset($data_array['output']['datos'])){
 			if(isset($data_array['output']['datos']['pintaDate'])){
 				if($data_array['output']['datos']['pintaDate'] == 'inicial'){
-					$data_array['chat_ui']['datepicker'] = true;
+					$data_array['chat_ui']['datepicker'] = 'inicial';
 					$data_array['context']["f_inicial"] = '2018-01-01' ;
 				}elseif ($data_array['output']['datos']['pintaDate'] == 'final'){
-					$data_array['chat_ui']['datepicker'] = true;
+					$data_array['chat_ui']['datepicker'] = 'final';
 					$data_array['context']["f_final"] = '2018-01-15' ;
 				}
 			}
@@ -109,7 +109,7 @@ class Conversation extends CI_Controller {
 							LIMIT $top;
 						";
 						$query=$this->db->query($sql);
-						$respuesta["text"]= "El top $top del fueza de venta en ".$datos->mes." de ".$datos->anio." se muestra en la grafica";
+						$respuesta["text"]= "El top $top del fueza de venta en ".$datos->mes." de ".$datos->anio." se muestra en la gráfica";
 						$respuesta["data"] = $query->result();
 					}
 				}
@@ -137,11 +137,31 @@ class Conversation extends CI_Controller {
 					GROUP BY reg_id ORDER BY reg_id;
 				";
 				$query=$this->db->query($sql);
-				$respuesta["text"]= "El total de lineas por region se muestra en la grafica";
+				$respuesta["text"]= "El total de lineas por region se muestra en la gráfica";
 				$respuesta["data"] = $query->result();
 				break;
 			case 3:
-				$respuesta["text"] = "Aqui va el valor que retorna la consulta 3";
+				$num_mes=$this->numMes($datos->mes);
+				$sql = "
+					SELECT reg_id, reg_nombre, count(num_id) totalLineas, fac_fecha
+					FROM cat_venta
+						JOIN cat_cuenta USING(cta_id)
+						JOIN cat_plan USING(pln_id) # plan prepago
+						JOIN cat_factura USING(ven_id)
+						JOIN cat_estado USING(est_id)
+						JOIN cat_region USING(reg_id)
+						JOIN cat_coordenada USING(est_id)
+						JOIN cat_empleado USING(emp_id)
+					WHERE MONTH(fac_fecha) = $num_mes AND YEAR(fac_fecha) = $datos->anio
+						AND pln_id=3 # telcel pregado
+						AND rol_id = (
+							SELECT rol_id FROM telcel.cat_rol where rol_nombre = '$datos->rol'
+                        ) # rol empleado LIDER
+					GROUP BY reg_id ORDER BY count(num_id) ASC ;
+				";
+				$query=$this->db->query($sql);
+				$respuesta["text"]= "El total de lineas por region con rol $datos->rol se muestra en la gráfica";
+				$respuesta["data"] = $query->result();
 				break;
 			case 4:
 				$num_mes=$this->numMes($datos->mes);
@@ -216,7 +236,6 @@ class Conversation extends CI_Controller {
 				break;
 		}
 		return $num;
-
 	}
 
 	private function numTop($top){
@@ -230,4 +249,5 @@ class Conversation extends CI_Controller {
 		}
 		return $num;
 	}
+
 }
