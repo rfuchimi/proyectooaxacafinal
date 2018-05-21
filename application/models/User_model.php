@@ -5,12 +5,16 @@ class User_model extends CI_Model
     public $id;
     public $email;
     public $persona_id;
+    public $per_nombre;
+    public $per_apellidoPaterno;
+    public $per_apellidoMaterno;
 
     public function login_user()
     {   
-        $this->db->select('id, email, persona_id');
-        $this->db->from('users');
+        $this->db->select('u.id, u.email, per_nombre, per_apellidoPaterno', 'per_apellidoMaterno');
+        $this->db->from('users u');
         $this->db->where(array('email' => $_POST['email'], 'password' => md5($_POST['password'])));
+        $this->db->join('cat_persona cp', 'on persona_id = per_id', 'inner');
         $query = $this->db->get();
         $user = $query->row();
         return isset($user) ? $user : false;

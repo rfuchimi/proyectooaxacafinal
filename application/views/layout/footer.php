@@ -7,47 +7,7 @@
                 </div>
             </div>
         </div>
-        <!--[if lt IE 9]>
-<div class="ie-warning">
-    <h1>Warning!!</h1>
-    <p>You are using an outdated version of Internet Explorer, please upgrade <br/>to any of the following web browsers to access this website.</p>
-    <div class="iew-container">
-        <ul class="iew-download">
-            <li>
-                <a href="http://www.google.com/chrome/">
-                    <img src="public/assets/images/browser/chrome.png" alt="Chrome">
-                    <div>Chrome</div>
-                </a>
-            </li>
-            <li>
-                <a href="https://www.mozilla.org/en-US/firefox/new/">
-                    <img src="public/assets/images/browser/firefox.png" alt="Firefox">
-                    <div>Firefox</div>
-                </a>
-            </li>
-            <li>
-                <a href="http://www.opera.com">
-                    <img src="public/assets/images/browser/opera.png" alt="Opera">
-                    <div>Opera</div>
-                </a>
-            </li>
-            <li>
-                <a href="https://www.apple.com/safari/">
-                    <img src="public/assets/images/browser/safari.png" alt="Safari">
-                    <div>Safari</div>
-                </a>
-            </li>
-            <li>
-                <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">
-                    <img src="public/assets/images/browser/ie.png" alt="">
-                    <div>IE (9 & above)</div>
-                </a>
-            </li>
-        </ul>
-    </div>
-    <p>Sorry for the inconvenience!</p>
-</div>
-<![endif]-->
+        
         <script src="public/bower_components/jquery/js/jquery.min.js" type="text/javascript"></script>
         <script src="public/bower_components/jquery-ui/js/jquery-ui.min.js"></script>
         <script src="public/bower_components/popper.js/js/popper.min.js" type="text/javascript"></script>
@@ -85,6 +45,7 @@
         <script src="public/assets/js/demo-12.js"></script>
         <script src="public/assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
         <script src="public/assets/js/jquery.mousewheel.min.js"></script>
+
         <script type="text/javascript" src="public/bower_components/pnotify/js/pnotify.js"></script>
         <script type="text/javascript" src="public/bower_components/pnotify/js/pnotify.desktop.js"></script>
         <script type="text/javascript" src="public/bower_components/pnotify/js/pnotify.buttons.js"></script>
@@ -93,14 +54,18 @@
         <script type="text/javascript" src="public/bower_components/pnotify/js/pnotify.animate.js"></script>
         <script type="text/javascript" src="public/bower_components/pnotify/js/pnotify.history.js"></script>
         <script type="text/javascript" src="public/bower_components/pnotify/js/pnotify.mobile.js"></script>
-        <script type="text/javascript" src="public/bower_components/pnotify/js/pnotify.nonblock.js"></script>
+
+        <script type="text/javascript" src="../bower_components/bootstrap-daterangepicker/js/daterangepicker.js"></script>
+
         <script src="public/assets/js/main.js"></script>
         <script type="text/javascript">
             $(document).ready(function() {
                 <?php
                 if ($this->session->flashdata('notify')) {
                     if ($_SESSION['notify']['status'] == 0) { ?>
-                        console.log("notif no");
+                        $("#input-login-email").val("<?= $_SESSION['data']['email'] ?>");
+                        $("#input-login-password").val("<?= $_SESSION['data']['password'] ?>");
+                        $("#sign-in").modal('show');
                         $(function(){
                             new PNotify({
                                 title: 'Error',

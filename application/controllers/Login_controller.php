@@ -13,19 +13,22 @@ class Login_controller extends CI_Controller
     {
         if ($user = $this->User_model->login_user()) {
             $this->session->set_userdata(get_object_vars($user));
-            $this->session->set_flashdata('notify', array('status' => 1, 'message' => '¡Bienvenido ' . $user->email . '!'));
+            $this->session->set_flashdata('notify', array('status' => 1, 'message' => '¡Bienvenido ' . $user->per_nombre . ' ' . $user->per_apellidoPaterno . '!'));
             redirect(base_url());
         } else {
-    		$this->session->set_flashdata('notify', array('status' => 0, 'message' => 'Usuario no encontrado. Intenta con otros datos.'));
+    		$this->session->set_flashdata('notify', array('status' => 0, 'message' => 'Usuario no encontrado. Intenta de nuevo.'));
+            $this->session->set_flashdata('data', $_POST);
             redirect(base_url());
         }
     }
 
     public function logout()
     {
-    	$email = $_SESSION['email'];
-        session_destroy();
-        $this->session->set_flashdata('notify', array('status' => 2, 'message' => '¡Hasta luego ' . $email . '!'));
+        $per_nombre = $_SESSION['per_nombre'];
+        $per_apellidoPaterno = $_SESSION['per_apellidoPaterno'];
+        $this->session->sess_destroy();
+        $this->session->set_userdata(array('nothing' => 1));
+        $this->session->set_flashdata('notify', array('status' => 2, 'message' => '¡Hasta luego ' . $per_nombre . ' ' . $per_apellidoPaterno . '!'));
         redirect(base_url());
     }
 

@@ -1,45 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-      <title>
-          Telcel - <?= explode("_", $this->router->fetch_class())[0] ?>
-      </title>
+        <title>
+        Telcel - <?= explode("_", $this->router->fetch_class())[0] ?>
+        </title>
         <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-      <![endif]-->
-			<meta charset="utf-8" />
-			<meta content="IE=edge" http-equiv="X-UA-Compatible" />
-			<meta content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" name="viewport" />
-			<meta content="#" name="description" />
-			<meta content="flat ui, Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app" name="keywords" />
-			<meta content="#" name="author" />
-			<link href="public/assets/images/telcel_icon.png" rel="icon" type="image/x-icon" />
-			<!-- <link href="https://fonts.googleapis.com/css?family=Mada:300,400,500,600,700" rel="stylesheet" /> -->
-			<link href="public/bower_components/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-			<link href="public/assets/icon/themify-icons/themify-icons.css" rel="stylesheet" type="text/css" />
-			<link href="public/assets/icon/icofont/css/icofont.css" rel="stylesheet" type="text/css" />
-			<link href="public/assets/pages/flag-icon/flag-icon.min.css" rel="stylesheet" type="text/css" />
-			<link href="public/assets/icon/SVG-animated/svg-weather.css" rel="stylesheet" type="text/css" />
-			<link href="public/assets/pages/menu-search/css/component.css" rel="stylesheet" type="text/css" />
-			<link href="public/assets/pages/dashboard/horizontal-timeline/css/style.css" rel="stylesheet" type="text/css" />
-			<link href="public/assets/pages/dashboard/amchart/css/amchart.css" rel="stylesheet" type="text/css" />
-			<link href="public/assets/pages/widget/calender/pignose.calendar.min.css" rel="stylesheet" type="text/css" />
-			<link href="public/assets/pages/flag-icon/flag-icon.min.css" rel="stylesheet" type="text/css" />
-			<link href="public/assets/css/style.css" rel="stylesheet" type="text/css" />
-			<link href="public/assets/icon/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" />
-			<link href="public/assets/css/linearicons.css" rel="stylesheet" type="text/css" />
-			<link href="public/assets/css/simple-line-icons.css" rel="stylesheet" type="text/css" />
-			<link href="public/assets/css/ionicons.css" rel="stylesheet" type="text/css" />
-			<link href="public/assets/css/jquery.mCustomScrollbar.css" rel="stylesheet" type="text/css" />
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+		<meta charset="utf-8" />
+		<meta content="IE=edge" http-equiv="X-UA-Compatible" />
+		<meta content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" name="viewport" />
+		<meta content="#" name="description" />
+		<meta content="flat ui, Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app" name="keywords" />
+		<meta content="#" name="author" />
+		<link href="public/assets/images/telcel_icon.png" rel="icon" type="image/x-icon" />
+		<!-- <link href="https://fonts.googleapis.com/css?family=Mada:300,400,500,600,700" rel="stylesheet" /> -->
+		<link href="public/bower_components/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+		<link href="public/assets/icon/themify-icons/themify-icons.css" rel="stylesheet" type="text/css" />
+		<link href="public/assets/icon/icofont/css/icofont.css" rel="stylesheet" type="text/css" />
+		<link href="public/assets/pages/flag-icon/flag-icon.min.css" rel="stylesheet" type="text/css" />
+		<link href="public/assets/icon/SVG-animated/svg-weather.css" rel="stylesheet" type="text/css" />
+		<link href="public/assets/pages/menu-search/css/component.css" rel="stylesheet" type="text/css" />
+		<link href="public/assets/pages/dashboard/horizontal-timeline/css/style.css" rel="stylesheet" type="text/css" />
+		<link href="public/assets/pages/dashboard/amchart/css/amchart.css" rel="stylesheet" type="text/css" />
+		<link href="public/assets/pages/widget/calender/pignose.calendar.min.css" rel="stylesheet" type="text/css" />
+		<link href="public/assets/pages/flag-icon/flag-icon.min.css" rel="stylesheet" type="text/css" />
+		<link href="public/assets/css/style.css" rel="stylesheet" type="text/css" />
+		<link href="public/assets/icon/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" />
+		<link href="public/assets/css/linearicons.css" rel="stylesheet" type="text/css" />
+		<link href="public/assets/css/simple-line-icons.css" rel="stylesheet" type="text/css" />
+		<link href="public/assets/css/ionicons.css" rel="stylesheet" type="text/css" />
+		<link href="public/assets/css/jquery.mCustomScrollbar.css" rel="stylesheet" type="text/css" />
 
-            <link rel="stylesheet" type="text/css" href="public/bower_components/pnotify/css/pnotify.css">
-            <link rel="stylesheet" type="text/css" href="public/bower_components/pnotify/css/pnotify.brighttheme.css">
-            <link rel="stylesheet" type="text/css" href="public/bower_components/pnotify/css/pnotify.buttons.css">
-            <link rel="stylesheet" type="text/css" href="public/bower_components/pnotify/css/pnotify.history.css">
-            <link rel="stylesheet" type="text/css" href="public/bower_components/pnotify/css/pnotify.mobile.css">
+        <link rel="stylesheet" type="text/css" href="public/bower_components/pnotify/css/pnotify.css">
+        <link rel="stylesheet" type="text/css" href="public/bower_components/pnotify/css/pnotify.brighttheme.css">
+        <link rel="stylesheet" type="text/css" href="public/bower_components/pnotify/css/pnotify.buttons.css">
+        <link rel="stylesheet" type="text/css" href="public/bower_components/pnotify/css/pnotify.history.css">
+        <link rel="stylesheet" type="text/css" href="public/bower_components/pnotify/css/pnotify.mobile.css">
 
-			<link href="public/assets/css/estilo.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" type="text/css" href="public/bower_components/bootstrap-daterangepicker/css/daterangepicker.css" />
+
+		<link href="public/assets/css/estilo.css" rel="stylesheet" type="text/css" />
     </head>
     <body>
         <script type="text/javascript">
@@ -87,7 +89,7 @@
 									    <a href="#!">
 									        <img alt="User-Profile-Image" src="public/assets/images/user.png">
 									            <span>
-									                <?= isset($_SESSION['id']) ? $_SESSION['email'] : 'Ingresa' ?>
+									                <?= isset($_SESSION['id']) ? $_SESSION['per_nombre'] . ' ' . $_SESSION['per_apellidoPaterno'] : 'Ingresa' ?>
 									            </span>
 									            <i class="ti-angle-down">
 									            </i>
@@ -302,13 +304,13 @@
                     </div>
                     <hr/>
                     <div class="input-group">
-                        <input class="form-control" placeholder="Tu email" type="email" name="email">
+                        <input class="form-control" placeholder="Tu email" type="email" name="email" id="input-login-email">
                             <span class="md-line">
                             </span>
                         </input>
                     </div>
                     <div class="input-group">
-                        <input class="form-control" placeholder="Contraseña" type="password" name="password">
+                        <input class="form-control" placeholder="Contraseña" type="password" name="password" id="input-login-password">
                             <span class="md-line">
                             </span>
                         </input>
