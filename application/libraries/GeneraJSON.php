@@ -4,8 +4,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class GeneraJSON {
 
 	public function __construct(){
+		$cred = new Credentials();
+		$con = array();
+		$con = $cred->conexion();
 		$this->CI =& get_instance();
-		$this->CI->load->database();
+		$this->CI->load->database($con);
 	}
 	
 	public function mapa($entrada = '', $estado = false){

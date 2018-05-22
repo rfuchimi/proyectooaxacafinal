@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'sl-us-south-1-portal.3.dblayer.com:37083',
-	'username' => 'admin',
-	'password' => 'AUDWXSMHXFUMZGTD',
-	'database' => 'telcel',
+	'hostname' => 'localhost',
+	'username' => '',
+	'password' => '',
+	'database' => '',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
