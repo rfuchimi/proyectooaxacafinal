@@ -1,17 +1,14 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class GeneraJSON extends CI_Controller {
+class GeneraJSON {
 
-	public function index(){
-			
-		$this->data['mapa'] = $this->mapa();
-		$this->data['chart'] = $this->charts();
-
-		$this->load->view('welcome_message', $this->data);
+	public function __construct(){
+		$this->CI =& get_instance();
+		$this->CI->load->database();
 	}
 	
-	public function mapa($region = ''){
+	public function mapa($entrada = '', $estado = false){
 
 		$map = new stdClass();
 		$map->name = 'mexico';
@@ -27,7 +24,7 @@ class GeneraJSON extends CI_Controller {
 		$legend->area->slices = array();
 
 		//CONSULTA DE LAS REGIONES
-		$consultaReg=$this->db->query('
+		$consultaReg=$this->CI->db->query('
 			SELECT r.reg_id, r.reg_nombre, r.reg_color, 
 				CONCAT(r.reg_nombre," - ", GROUP_CONCAT(e.est_abreviatura SEPARATOR ", ")) AS est
 			FROM telcel.cat_region AS r
@@ -48,18 +45,22 @@ class GeneraJSON extends CI_Controller {
 		}
 
 		//CONSULTA DE LOS ESTADOS
-		$sqlEstados = '
+		$sqlMapa = '
 			SELECT e.est_id, e.est_nombre, r.reg_id, r.reg_nombre
 			FROM telcel.cat_estado AS e
 			INNER JOIN telcel.cat_region AS r USING (reg_id)';
-		if ( !empty($region) && $region > 0 && $region <= 9 ) {
-			$sqlEstados .= '
-			WHERE r.reg_id = ' . $region;
+
+		if ($estado && !empty($entrada) && $entrada > 0 && $entrada <= 32) {
+			$sqlMapa .= '
+			WHERE e.est_id = ' . $entrada;
+		} elseif ( !empty($entrada) && $entrada > 0 && $entrada <= 9 ) {
+			$sqlMapa .= '
+			WHERE r.reg_id = ' . $entrada;
 		}
-		$sqlEstados .= '
+		$sqlMapa .= '
 			ORDER BY e.est_nombre;';
 
-		$consultaEst=$this->db->query($sqlEstados);
+		$consultaEst=$this->CI->db->query($sqlMapa);
 
 		$areas = new stdClass();
 		foreach ($consultaEst->result() as $fila){
@@ -77,9 +78,7 @@ class GeneraJSON extends CI_Controller {
 		$mapa->legend = $legend;
 		$mapa->areas = $areas;
 
-		//echo json_encode($mapa);
-
-		return $mapa;
+		return json_encode($mapa, JSON_PRETTY_PRINT);
 	}
 
 	public function charts(){
@@ -93,10 +92,9 @@ class GeneraJSON extends CI_Controller {
 			array_push($chart, $props);	
 		}
 
-		return $chart;
+		return json_encode($chart, JSON_PRETTY_PRINT);
 	}
-
 }
 
 /* End of file GeneraJSON.php */
-/* Location: ./application/controllers/GeneraJSON.php */
+/* Location: ./application/libraries/GeneraJSON.php */

@@ -74,8 +74,24 @@
 <body>
 
 <div id="container">
-	<pre><code><?= json_encode($mapa, JSON_PRETTY_PRINT) ?></code></pre>
-	<pre><code><?= json_encode($chart, JSON_PRETTY_PRINT) ?></code></pre>
+	<pre>
+		<code>
+			**********PINTA LA REGION**********
+			<?= $mapaRegion ?>
+		</code>
+	</pre>
+	<pre>
+		<code>
+			**********PINTA EL ESTADO**********
+			<?= $mapaEstado ?>
+		</code>
+	</pre>
+	<pre>
+		<code>
+			**********PINTA LA GRAFICA**********
+			<?= $graficas ?>
+		</code>
+	</pre>
 </div>
 
 </body>
