@@ -41,11 +41,13 @@
 		display: block;
 		margin: 14px 0 14px 0;
 		padding: 12px 10px 12px 10px;
+		height: 100%;
 	}
 
 	pre {
-		width: 50%;
-		float: left;
+		width: 80%;
+		height: 300px;
+		margin: 0 auto;
 	}
 
 	#body {
@@ -77,19 +79,19 @@
 	<pre>
 		<code>
 			**********PINTA LA REGION**********
-			<?= $mapaRegion ?>
+<?= $mapaRegion ?>
 		</code>
 	</pre>
 	<pre>
 		<code>
 			**********PINTA EL ESTADO**********
-			<?= $mapaEstado ?>
+<?= $mapaEstado ?>
 		</code>
 	</pre>
 	<pre>
 		<code>
 			**********PINTA LA GRAFICA**********
-			<?= $graficas ?>
+<?= $graficas ?>
 		</code>
 	</pre>
 </div>

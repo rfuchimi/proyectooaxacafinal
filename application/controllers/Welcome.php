@@ -9,7 +9,7 @@ class Welcome extends CI_Controller {
 		$this->load->view('mapa_mex/index');
 		$this->data['mapaRegion'] = $generaJSON->mapa(1);//Pinta la region
 		$this->data['mapaEstado'] = $generaJSON->mapa(1, true);//Pinta el estado
-		$this->data['graficas'] = $generaJSON->charts();//Pinta la grafica
+		$this->data['graficas'] = $generaJSON->charts(1);//Pinta la grafica
 		$this->load->view('welcome_message', $this->data);
 	}
 }
