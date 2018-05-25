@@ -163,7 +163,7 @@ class GeneraJSON {
 				}
 
 				$sql .= '
-						GROUP BY reg_id ORDER BY count(num_id) ASC;'
+					GROUP BY reg_id ORDER BY count(num_id) ASC;';
 				break;
 
 			case 4:
@@ -179,15 +179,57 @@ class GeneraJSON {
 						INNER JOIN cat_plan USING (pln_id)
 						INNER JOIN cat_FuerzaVenta USING (fve_id)
 						INNER JOIN cat_activacionVenta va USING (cta_id)
-					WHERE MONTH(ven_fecha) = $mes AND YEAR(ven_fecha) = $anio
-					AND reg_nombre = '$region' AND pln_nombre='TELCEL PREPAGO'
-					AND v.fve_id $condicional v.fve_id
-					ORDER BY num_fechaActivacion;
+					WHERE pln_nombre="TELCEL PREPAGO"
 				';
+
+				if (!empty($mes)) {
+					$sql .= '
+						AND MONTH(fac_fecha) = ' . $mes;
+				}
+
+				if (!empty($anio)) {
+					$sql .= '
+						AND YEAR(fac_fecha) = ' . $anio;
+				}
+
+				if (!empty($region)) {
+					$sql .= '
+						AND reg_nombre = ' . $region;
+				}
+
+				if (!empty($condicional)) {
+					$sql .= '
+						AND v.fve_id ' . $condicional . ' v.fve_id';
+				}
+
+				$sql .= '
+					ORDER BY num_fechaActivacion;';
 				break;
 
 			case 5:
-				# code...
+				$sql = '
+					SELECT s.reg_id, s.reg_nombre, MAX(s.TotalMG) TotalMG
+					FROM (
+						SELECT reg_id, reg_nombre, SUM(vin_duracion) TotalMG
+						FROM cat_venta
+							INNER JOIN cat_cuenta USING(cta_id)
+							INNER JOIN cat_plan USING(pln_id) # plan prepago
+							INNER JOIN cat_factura USING(ven_id)
+							INNER JOIN cat_estado USING(est_id)
+							INNER JOIN cat_region USING(reg_id)
+							INNER JOIN vin_movimientoCuenta USING(cta_id) 
+						WHERE pln_id = 3 # telcel pregado
+							AND mov_id = 6 # navegacion internet
+				';
+
+				if (!empty($f_inicial) && !empty($f_final)) {
+					$sql .= '
+						AND DATE(vin_fecha) BETWEEN "' . $f_inicial . '" AND "' . $f_final . '"';
+				}
+
+				$sql .= '
+						GROUP BY reg_id
+					) AS s;';
 				break;
 
 		}
