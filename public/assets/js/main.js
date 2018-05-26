@@ -55,7 +55,7 @@ $(document).ready(function() {
             $("#text_nvo_mensaje").replaceWith('<input type="text" name="daterange" class="form-control" id="text_nvo_mensaje">');            
           }
         } 
-        
+        //llamado al mapa o la grafica
         if (data['output']) {
           if (data['output']['datos']) {
             if (data['output']['datos']['pintaFrame']) {
