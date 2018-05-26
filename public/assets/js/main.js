@@ -86,6 +86,7 @@ $(document).ready(function() {
   $("#form_mensaje").on("submit", function(event) {
     event.preventDefault();
     enviar_mensaje($(this).serialize());
+    setTimeout(mostrarMapa, 1000);
   });
 
   $("#text_nvo_mensaje").keydown(function(e) {
