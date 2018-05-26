@@ -60,9 +60,13 @@ $(document).ready(function() {
           if (data['output']['datos']) {
             if (data['output']['datos']['pintaFrame']) {
                 if (data['output']['datos']['pintaFrame'] == "Mapa") {
+                 setTimeout(ocultarMapa, 500);
+
                  setTimeout(mostrarMapa, 1000);
                }
                if (data['output']['datos']['pintaFrame'] == "Grafica") {
+                 setTimeout(ocultarGrafica, 500);
+
                  setTimeout(mostrarGrafica, 1000);
                }
             }
@@ -88,6 +92,7 @@ $(document).ready(function() {
                 '</div>'+
             '</div>'
           );
+          getAudio(data.output.text[0],1);// asistente de voz
         $("#cont_mensajes_chat").scrollTop($("#cont_mensajes_chat")[0].scrollHeight);
       })
     });
