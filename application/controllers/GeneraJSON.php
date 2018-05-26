@@ -1,14 +1,16 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class GeneraJSON {
+class GeneraJSON extends CI_Controller {
 
-	public function __construct(){
-		$cred = new Credentials();
-		$con = array();
-		$con = $cred->conexion();
-		$this->CI =& get_instance();
-		$this->CI->load->database($con);
+	public function index(){
+
+		$this->load->view('mapa_mex/index');
+		$this->data['mapaRegion'] = $this->mapa(1);//Pinta la region
+		$this->data['mapaEstado'] = $this->mapa(1, true);//Pinta el estado
+		$this->data['graficas'] = $this->charts(1);//Pinta la grafica
+		$this->load->view('welcome_message', $this->data);
+		
 	}
 	
 	public function mapa($entrada = '', $estado = false){
@@ -27,7 +29,7 @@ class GeneraJSON {
 		$legend->area->slices = array();
 
 		//CONSULTA DE LAS REGIONES
-		$consultaReg=$this->CI->db->query('
+		$consultaReg=$this->db->query('
 			SELECT r.reg_id, r.reg_nombre, r.reg_color, 
 				CONCAT(r.reg_nombre," - ", GROUP_CONCAT(e.est_abreviatura SEPARATOR ", ")) AS est
 			FROM telcel.cat_region AS r
@@ -63,7 +65,7 @@ class GeneraJSON {
 		$sqlMapa .= '
 			ORDER BY e.est_nombre;';
 
-		$consultaEst=$this->CI->db->query($sqlMapa);
+		$consultaEst=$this->db->query($sqlMapa);
 
 		$areas = new stdClass();
 		foreach ($consultaEst->result() as $fila){
@@ -86,25 +88,56 @@ class GeneraJSON {
 
 	public function charts($pregunta, array $opciones = NULL){
 
-		$region = array_key_exists('region', $opciones) ? $opciones['region'] : '';
-		$estado = array_key_exists('estado', $opciones) ? $opciones['estado'] : '';
-		$mes = array_key_exists('mes', $opciones) ? $opciones['mes'] : '';
-		$anio = array_key_exists('anio', $opciones) ? $opciones['anio'] : '';
-		$top = array_key_exists('top', $opciones) ? $opciones['top'] : '';
-		$f_inicial = array_key_exists('f_inicial', $opciones) ? $opciones['f_inicial'] : '';
-		$f_final = array_key_exists('f_final', $opciones) ? $opciones['f_final'] : '';
-		$rol = array_key_exists('rol', $opciones) ? $opciones['rol'] : '';
-		$condicional = array_key_exists('condicional', $opciones) ? $opciones['condicional'] : '';
+		if ($opciones != NULL) {
+			$region = array_key_exists('region', $opciones) ? $opciones['region'] : '';
+			$estado = array_key_exists('estado', $opciones) ? $opciones['estado'] : '';
+			$mes = array_key_exists('mes', $opciones) ? $opciones['mes'] : '';
+			$anio = array_key_exists('anio', $opciones) ? $opciones['anio'] : '';
+			$top = array_key_exists('top', $opciones) ? $opciones['top'] : '';
+			$f_inicial = array_key_exists('f_inicial', $opciones) ? $opciones['f_inicial'] : '';
+			$f_final = array_key_exists('f_final', $opciones) ? $opciones['f_final'] : '';
+			$rol = array_key_exists('rol', $opciones) ? $opciones['rol'] : '';
+			$condicional = array_key_exists('condicional', $opciones) ? $opciones['condicional'] : '';
+		}
+
+		$chart = array();
 
 		switch ($pregunta) {
 			case 1:
-				# code...
+				$sql = '
+					SELECT  tfv_id, tfv_nombre, ven_fecha, ven_monto, pln_nombre
+					FROM cat_venta
+						INNER JOIN cat_FuerzaVenta USING (fve_id)
+						INNER JOIN cat_TipoFuerzaVenta USING (tfv_id)
+						INNER JOIN cat_cuenta USING (cta_id)
+						INNER JOIN cat_numero USING (num_id)
+						INNER JOIN cat_plan USING (pln_id)
+					WHERE
+						pln_nombre = "TELCEL PREPAGO"';
+
+				if (!empty($f_inicial) && !empty($f_final)) {
+					$sql .= '
+						AND ven_fecha BETWEEN "' . $f_inicial . '" AND "' . $f_final . '"';
+				}
+
+				$sql .= '
+					ORDER BY ven_monto DESC
+					LIMIT 0 , 5;';
+		
+				$resultado = $this->db->query($sql);
+
+				foreach ($resultado->result() as $fila){
+					$props = new stdClass();
+					$props->category = htmlentities($fila->tfv_nombre);
+					$props->value1 = $fila->ven_monto;
+					array_push($chart, $props);
+				}
 				break;
 
 			case 2:
 				$sql = '
-					SELECT reg_id, reg_nombre, count(num_id) totalLineas, fac_fecha,
-						vin_observacion Movimiento, vin_fecha fechaMovimiento
+					SELECT reg_id, reg_nombre, count(num_id) totalLineas, #fac_fecha,
+						vin_observacion Movimiento#, vin_fecha fechaMovimiento
 					FROM cat_venta
 						INNER JOIN cat_cuenta USING(cta_id)
 						INNER JOIN cat_plan USING(pln_id)
@@ -114,7 +147,7 @@ class GeneraJSON {
 						INNER JOIN cat_estado USING(est_id)
 						INNER JOIN cat_region USING(reg_id)
 						INNER JOIN cat_coordenada USING(est_id)
-					WHERE pln_id=3 # telcel pregado
+					WHERE pln_id=3 #PREPAGO
 						AND mov_id=1
 						AND vin_observacion="PRIMERA RECARGA"';
 
@@ -135,11 +168,20 @@ class GeneraJSON {
 
 				$sql .= '
 					GROUP BY reg_id ORDER BY reg_id;';
+		
+				$resultado = $this->db->query($sql);
+
+				foreach ($resultado->result() as $fila){
+					$props = new stdClass();
+					$props->category = $fila->reg_nombre;
+					$props->value1 = $fila->totalLineas;
+					array_push($chart, $props);
+				}
 				break;
 
 			case 3:
 				$sql = '
-					SELECT reg_id, reg_nombre, count(num_id) totalLineas, fac_fecha
+					SELECT reg_id, reg_nombre, count(num_id) totalLineas#, fac_fecha
 					FROM cat_venta
 						INNER JOIN cat_cuenta USING(cta_id)
 						INNER JOIN cat_plan USING(pln_id) # plan prepago
@@ -164,8 +206,18 @@ class GeneraJSON {
 
 				$sql .= '
 					GROUP BY reg_id ORDER BY count(num_id) ASC;';
+		
+				$resultado = $this->db->query($sql);
+
+				foreach ($resultado->result() as $fila){
+					$props = new stdClass();
+					$props->category = $fila->reg_nombre;
+					$props->value1 = $fila->totalLineas;
+					array_push($chart, $props);
+				}
 				break;
 
+			/*
 			case 4:
 				$sql = '
 					SELECT num_numero, reg_nombre, num_fechaActivacion, pln_nombre, v.fve_id venta, va.fve_id activacion
@@ -204,6 +256,15 @@ class GeneraJSON {
 
 				$sql .= '
 					ORDER BY num_fechaActivacion;';
+		
+				$resultado = $this->db->query($sql);
+
+				foreach ($resultado->result() as $fila){
+					$props = new stdClass();
+					$props->category = $fila->reg_nombre;
+					$props->value1 = $fila->totalLineas;
+					array_push($chart, $props);
+				}
 				break;
 
 			case 5:
@@ -231,21 +292,23 @@ class GeneraJSON {
 						GROUP BY reg_id
 					) AS s;';
 				break;
+				*/
 
 		}
 		
-		$chart = array();
+		/*$chart = array();
 		for ($i=0; $i < 10; $i++) {			
 			$props = new stdClass();
 			$props->category = '2013-08-' . ($i+1);
 			$props->value1 = $i+417;
 			$props->value2 = $i+127;
 			array_push($chart, $props);	
-		}
+		}*/
 
 		return json_encode($chart, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
 	}
+
 }
 
 /* End of file GeneraJSON.php */
-/* Location: ./application/libraries/GeneraJSON.php */
+/* Location: ./application/controllers/GeneraJSON.php */
