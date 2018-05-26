@@ -256,7 +256,7 @@
         </a>
     </div>
     <div id="cont_mensajes_chat">
-    	<!--<div class="media chat-messages">
+    	<div class="media chat-messages">
 	        <a class="media-left photo-table" href="#!">
 	            <img alt="Imagen watson" class="media-object img-circle m-t-5" src="public/assets/images/watson.png">
 	            </img>
@@ -264,11 +264,11 @@
 	        <div class="media-body chat-menu-content">
 	            <div class="">
 	                <p class="chat-cont">
-	                    Puedes empezar con un saludo
+	                    Hola mi nombre es Rocio y puedo ayudarte con preguntas relacionadas con "Fuerza de Venta Actual", "Consumo de datos", "Total de líneas portadas" quieres ver ejemplos
 	                </p>
 	            </div>
 	        </div>
-	    </div>-->
+	    </div>
     </div>
     <div class="chat-reply-box p-b-20">
         <div class="right-icon-control">

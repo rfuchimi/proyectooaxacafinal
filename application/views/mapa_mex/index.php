@@ -108,8 +108,6 @@ $(".mapcontainer").mapael(
 );
 </script>
 <script type="text/javascript">
-    //setTimeout(mostrarMapa, 1000);
-    //setTimeout(ocultarMapa, 20000);
     function mostrarMapa() 
     {
        
