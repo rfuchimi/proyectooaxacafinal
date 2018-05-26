@@ -1,4 +1,4 @@
-<div id="chartdivd" style="width: 640px; height: 400px;"></div>
+<div id="chartdivd" style="width: 640px; height: 400px; display: none;"></div>
 
 <script type="text/javascript" src="assets/amcharts/amcharts.js"></script>
 <script type="text/javascript" src="assets/amcharts/serial.js"></script>
@@ -47,3 +47,18 @@ AmCharts.makeChart( "chartdivd", {
 <?php
 
 ?>
+<script type="text/javascript">
+    function mostrarGrafica() 
+    {
+       
+       $('#chartdivd').show(3000);
+       $('.chartdivd').show("slow");
+    }
+
+    function ocultarGrafica()
+    {
+       
+       $('#chartdivd').hide(3000);
+       $('.chartdivd').hide("fast"); 
+    }
+</script>

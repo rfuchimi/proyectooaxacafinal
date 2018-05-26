@@ -6,7 +6,6 @@ class Inicio_controller extends CI_Controller {
 	{
 		$this->load->view('layout/header');
 		$this->load->view('inicio');
-		$this->load->view('chart');
 		$this->load->view('layout/footer');
 	}
 }

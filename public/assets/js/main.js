@@ -92,7 +92,7 @@ $(document).ready(function() {
                 '</div>'+
             '</div>'
           );
-          getAudio(data.output.text[0],1);// asistente de voz
+          getAudio(data.output.text,1);// asistente de voz
         $("#cont_mensajes_chat").scrollTop($("#cont_mensajes_chat")[0].scrollHeight);
       })
     });
