@@ -31,6 +31,12 @@ class Conversation extends CI_Controller {
 			}
 		}
 
+		if(isset($this->session->userdata['per_nombre'])){
+			$data_array['context']['usuario'] = $this->session->userdata('per_nombre');
+		}else{
+			$data_array['context']['usuario'] = NULL;
+		}
+
 		if(isset($data_array['output']['datos'])){
 			if(isset($data_array['output']['datos']['pintaDate'])){
 				if($data_array['output']['datos']['pintaDate'] == 'inicial'){
@@ -116,7 +122,7 @@ class Conversation extends CI_Controller {
 					$datos->top = $top;
 					$datos->mes = $num_mes;
 					$respuesta["datos"] = $datos;
-					$respuesta["datos"] = $query->result();
+					//$respuesta["datos"] = $query->result();
 				}
 				break;
 			case 2:
