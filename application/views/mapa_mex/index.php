@@ -1,8 +1,8 @@
 <div class="mapcontainer">
-    <div class="map">
+    <div class="map" style="display: none;">
         <span>Alternative content for the map</span>
     </div>
-    <div class="areaLegend"></div>
+    <div class="areaLegend" style="position: relative; top: -28em; margin-left: 44em;"></div>
     <div class="plotLegend"></div>
 </div>
 <link href="assets/css/mapael/estilo_mapael.css" rel="stylesheet" type="text/css" />
@@ -13,6 +13,7 @@
 <script type="text/javascript" src="assets/js/mapael/mexico.js" charset="utf-8"></script>
 
 <script type="text/javascript">
+    //JsonMapa
 $(".mapcontainer").mapael(
 {
     "map": {
@@ -26,7 +27,7 @@ $(".mapcontainer").mapael(
         "area": {
             "display": true,
             "title": "REGIONES DE VENTA TELCEL",
-            "mode": "horizontal",
+            "mode": "vertical",
             "slices": [
                 {
                     "max": "1",
@@ -102,282 +103,22 @@ $(".mapcontainer").mapael(
                 }
             ]
         }
-    },
-    "areas": {
-        "AGUASCALIENTES": {
-            "value": "6",
-            "href": "#",
-            "tooltip": {
-                "content": "6<br>AGUASCALIENTES"
-            }
-        },
-        "BAJA CALIFORNIA NORTE": {
-            "value": "1",
-            "href": "#",
-            "tooltip": {
-                "content": "1<br>BAJA CALIFORNIA NORTE"
-            }
-        },
-        "BAJA CALIFORNIA SUR": {
-            "value": "1",
-            "href": "#",
-            "tooltip": {
-                "content": "1<br>BAJA CALIFORNIA SUR"
-            }
-        },
-        "CAMPECHE": {
-            "value": "8",
-            "href": "#",
-            "tooltip": {
-                "content": "8<br>CAMPECHE"
-            }
-        },
-        "CHIAPAS": {
-            "value": "8",
-            "href": "#",
-            "tooltip": {
-                "content": "8<br>CHIAPAS"
-            }
-        },
-        "CHIHUAHUA": {
-            "value": "3",
-            "href": "#",
-            "tooltip": {
-                "content": "3<br>CHIHUAHUA"
-            }
-        },
-        "CIUDAD DE MEXICO": {
-            "value": "9",
-            "href": "#",
-            "tooltip": {
-                "content": "9<br>CIUDAD DE MEXICO"
-            }
-        },
-        "COAHUILA DE ZARAGOZA": {
-            "value": "4",
-            "href": "#",
-            "tooltip": {
-                "content": "4<br>COAHUILA DE ZARAGOZA"
-            }
-        },
-        "COLIMA": {
-            "value": "5",
-            "href": "#",
-            "tooltip": {
-                "content": "5<br>COLIMA"
-            }
-        },
-        "DURANGO": {
-            "value": "3",
-            "href": "#",
-            "tooltip": {
-                "content": "3<br>DURANGO"
-            }
-        },
-        "GUANAJUATO": {
-            "value": "6",
-            "href": "#",
-            "tooltip": {
-                "content": "6<br>GUANAJUATO"
-            }
-        },
-        "GUERRERO": {
-            "value": "7",
-            "href": "#",
-            "tooltip": {
-                "content": "7<br>GUERRERO"
-            }
-        },
-        "HIDALGO": {
-            "value": "5",
-            "href": "#",
-            "tooltip": {
-                "content": "5<br>HIDALGO"
-            }
-        },
-        "JALISCO": {
-            "value": "5",
-            "href": "#",
-            "tooltip": {
-                "content": "5<br>JALISCO"
-            }
-        },
-        "MEXICO": {
-            "value": "9",
-            "href": "#",
-            "tooltip": {
-                "content": "9<br>MEXICO"
-            }
-        },
-        "MICHOACAN DE OCAMPO": {
-            "value": "5",
-            "href": "#",
-            "tooltip": {
-                "content": "5<br>MICHOACAN DE OCAMPO"
-            }
-        },
-        "MORELOS": {
-            "value": "9",
-            "href": "#",
-            "tooltip": {
-                "content": "9<br>MORELOS"
-            }
-        },
-        "NAYARIT": {
-            "value": "5",
-            "href": "#",
-            "tooltip": {
-                "content": "5<br>NAYARIT"
-            }
-        },
-        "NUEVO LEON": {
-            "value": "4",
-            "href": "#",
-            "tooltip": {
-                "content": "4<br>NUEVO LEON"
-            }
-        },
-        "OAXACA": {
-            "value": "7",
-            "href": "#",
-            "tooltip": {
-                "content": "7<br>OAXACA"
-            }
-        },
-        "PUEBLA": {
-            "value": "7",
-            "href": "#",
-            "tooltip": {
-                "content": "7<br>PUEBLA"
-            }
-        },
-        "QUERETARO DE ARTEAGA": {
-            "value": "6",
-            "href": "#",
-            "tooltip": {
-                "content": "6<br>QUERETARO DE ARTEAGA"
-            }
-        },
-        "QUINTANA ROO": {
-            "value": "8",
-            "href": "#",
-            "tooltip": {
-                "content": "8<br>QUINTANA ROO"
-            }
-        },
-        "SAN LUIS POTOSI": {
-            "value": "6",
-            "href": "#",
-            "tooltip": {
-                "content": "6<br>SAN LUIS POTOSI"
-            }
-        },
-        "SINALOA": {
-            "value": "2",
-            "href": "#",
-            "tooltip": {
-                "content": "2<br>SINALOA"
-            }
-        },
-        "SONORA": {
-            "value": "2",
-            "href": "#",
-            "tooltip": {
-                "content": "2<br>SONORA"
-            }
-        },
-        "TABASCO": {
-            "value": "8",
-            "href": "#",
-            "tooltip": {
-                "content": "8<br>TABASCO"
-            }
-        },
-        "TAMAULIPAS": {
-            "value": "4",
-            "href": "#",
-            "tooltip": {
-                "content": "4<br>TAMAULIPAS"
-            }
-        },
-        "TLAXCALA": {
-            "value": "7",
-            "href": "#",
-            "tooltip": {
-                "content": "7<br>TLAXCALA"
-            }
-        },
-        "VERACRUZ": {
-            "value": "7",
-            "href": "#",
-            "tooltip": {
-                "content": "7<br>VERACRUZ"
-            }
-        },
-        "YUCATAN": {
-            "value": "8",
-            "href": "#",
-            "tooltip": {
-                "content": "8<br>YUCATAN"
-            }
-        },
-        "ZACATECAS": {
-            "value": "6",
-            "href": "#",
-            "tooltip": {
-                "content": "6<br>ZACATECAS"
-            }
-        }
     }
 }
-)
-
+);
 </script>
 <script type="text/javascript">
-varvar jsonObj  jsonObj = {
-    members: 
-           {
-            host: "hostName",
-            viewers: 
-            {
-                user1: "value1",
-                user2: "value2",
-                user3: "value3"
-            }
-        }
-}
+    function mostrarMapa() 
+    {
+       
+       $('#map').show(3000);
+       $('.map').show("slow");
+    }
 
-var i;
-
-for(i=4; i<=8; i++){
-    var newUser = "user" + i;
-    var newValue = "value" + i;
-    jsonObj.members.viewers[newUser] = newValue ;
-
-}
-
-console.log(jsonObj);
-
+    function ocultarMapa()
+    {
+       
+       $('#map').hide(3000);
+       $('.map').hide("fast"); 
+    }
 </script>
-
-<?php
-/*$query = $this->db->query('SELECT est_nombre,reg_id,reg_nombre
-                               FROM cat_estado
-                               inner join cat_coordenada using (est_id)
-                               inner join cat_region using (reg_id);
-');
-$areas = array();
-foreach ($query->result() as $row) 
-{ 
-
-echo $row->est_nombre; 
-echo $row->reg_id; 
-echo $row->reg_nombre; 
-
-$clientes[] = array('id'=> $id, 'nombre'=> $nombre, 'edad'=> $edad, 'genero'=> $genero,
-                        'email'=> $email, 'localidad'=> $localidad, 'telefono'=> $telefono);
-} 
-
-$json_string = json_encode($clientes);
-echo $json_string;*/
-?>

@@ -54,10 +54,25 @@ $(document).ready(function() {
             console.log('GOT IN');
             $("#text_nvo_mensaje").replaceWith('<input type="text" name="daterange" class="form-control" id="text_nvo_mensaje">');            
           }
+        } 
+        //llamado al mapa o la grafica
+        if (data['output']) {
+          if (data['output']['datos']) {
+            if (data['output']['datos']['pintaFrame']) {
+                if (data['output']['datos']['pintaFrame'] == "Mapa") {
+                 setTimeout(ocultarMapa, 500);
+
+                 setTimeout(mostrarMapa, 1000);
+               }
+               if (data['output']['datos']['pintaFrame'] == "Grafica") {
+                 setTimeout(ocultarGrafica, 500);
+
+                 setTimeout(mostrarGrafica, 1000);
+               }
+            }
+          }
         }
-         /*else {
-            $("#text_nvo_mensaje").replaceWith('<input class="form-control search-text" placeholder="(Enter para enviar)" type="text" id="text_nvo_mensaje" name="query" autocomplete="off">');
-        }*/
+
         $("#cont_mensajes_chat").
           append(''+
             '<div class="media chat-messages">'+
@@ -68,7 +83,7 @@ $(document).ready(function() {
                 '<div class="media-body chat-menu-content">'+
                     '<div class="">'+
                         '<p class="chat-cont">'+
-                            data.output.text[0]+
+                            data.output.text+
                         '</p>'+
                         '<p class="chat-time">'+
                             getTime()+
@@ -77,6 +92,7 @@ $(document).ready(function() {
                 '</div>'+
             '</div>'
           );
+          getAudio(data.output.text,1);// asistente de voz
         $("#cont_mensajes_chat").scrollTop($("#cont_mensajes_chat")[0].scrollHeight);
       })
     });

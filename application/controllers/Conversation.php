@@ -31,6 +31,12 @@ class Conversation extends CI_Controller {
 			}
 		}
 
+		if(isset($this->session->userdata['per_nombre'])){
+			$data_array['context']['usuario'] = $this->session->userdata('per_nombre');
+		}else{
+			$data_array['context']['usuario'] = NULL;
+		}
+
 		if(isset($data_array['output']['datos'])){
 			if(isset($data_array['output']['datos']['pintaDate'])){
 				if($data_array['output']['datos']['pintaDate'] == 'inicial'){
@@ -86,15 +92,20 @@ class Conversation extends CI_Controller {
   }
 
 	private function consulta($datos){
+		$datos->region = isset($datos->region)?$datos->region : '';
+		$datos->estado =isset($datos->estado)?$datos->estado : '';
+		$datos->mes = isset($datos->mes)?$datos->mes:12;
+		$datos->top = isset($datos->top)?$datos->top:50;
+		$datos->anio = isset($datos->anio)?$datos->anio:2017;
 		switch ($datos->pregunta) {
 			case 1:
 				$num_mes=$this->numMes($datos->mes);
 				$top = $this->numTop($datos->top);
 
-				if(isset($datos->region)){
+				if($datos->region!=''){
 					$respuesta["text"] = "Aqui va el valor que retorna la consulta 1 por region->".$datos->region;
 				}else{
-					if(isset($datos->estado)){
+					if($datos->estado!=''){
 						$respuesta["text"] = "Aqui va el valor que retorna la consulta 1 por estado->".$datos->estado;
 					}else{
 						$sql = "
@@ -116,7 +127,7 @@ class Conversation extends CI_Controller {
 					$datos->top = $top;
 					$datos->mes = $num_mes;
 					$respuesta["datos"] = $datos;
-					$respuesta["datos"] = $query->result();
+					//$respuesta["datos"] = $query->result();
 				}
 				break;
 			case 2:
