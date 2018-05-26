@@ -83,7 +83,8 @@ class GeneraJSON extends CI_Controller {
 		$mapa->legend = $legend;
 		$mapa->areas = $areas;
 
-		return json_encode($mapa, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+		//return json_encode($mapa, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+		echo json_encode($mapa, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
 	}
 
 	public function charts($pregunta, array $opciones = NULL){
@@ -217,83 +218,6 @@ class GeneraJSON extends CI_Controller {
 				}
 				break;
 
-			/*
-			case 4:
-				$sql = '
-					SELECT num_numero, reg_nombre, num_fechaActivacion, pln_nombre, v.fve_id venta, va.fve_id activacion
-					FROM cat_factura
-						INNER JOIN cat_venta v USING (ven_id)
-						INNER JOIN cat_localidad USING (loc_id, mun_id,est_id)
-						INNER JOIN cat_estado USING (est_id)
-						INNER JOIN cat_region USING (reg_id)
-						INNER JOIN cat_cuenta USING (cta_id)
-						INNER JOIN cat_numero USING (num_id)
-						INNER JOIN cat_plan USING (pln_id)
-						INNER JOIN cat_FuerzaVenta USING (fve_id)
-						INNER JOIN cat_activacionVenta va USING (cta_id)
-					WHERE pln_nombre="TELCEL PREPAGO"
-				';
-
-				if (!empty($mes)) {
-					$sql .= '
-						AND MONTH(fac_fecha) = ' . $mes;
-				}
-
-				if (!empty($anio)) {
-					$sql .= '
-						AND YEAR(fac_fecha) = ' . $anio;
-				}
-
-				if (!empty($region)) {
-					$sql .= '
-						AND reg_nombre = ' . $region;
-				}
-
-				if (!empty($condicional)) {
-					$sql .= '
-						AND v.fve_id ' . $condicional . ' v.fve_id';
-				}
-
-				$sql .= '
-					ORDER BY num_fechaActivacion;';
-		
-				$resultado = $this->db->query($sql);
-
-				foreach ($resultado->result() as $fila){
-					$props = new stdClass();
-					$props->category = $fila->reg_nombre;
-					$props->value1 = $fila->totalLineas;
-					array_push($chart, $props);
-				}
-				break;
-
-			case 5:
-				$sql = '
-					SELECT s.reg_id, s.reg_nombre, MAX(s.TotalMG) TotalMG
-					FROM (
-						SELECT reg_id, reg_nombre, SUM(vin_duracion) TotalMG
-						FROM cat_venta
-							INNER JOIN cat_cuenta USING(cta_id)
-							INNER JOIN cat_plan USING(pln_id) # plan prepago
-							INNER JOIN cat_factura USING(ven_id)
-							INNER JOIN cat_estado USING(est_id)
-							INNER JOIN cat_region USING(reg_id)
-							INNER JOIN vin_movimientoCuenta USING(cta_id) 
-						WHERE pln_id = 3 # telcel pregado
-							AND mov_id = 6 # navegacion internet
-				';
-
-				if (!empty($f_inicial) && !empty($f_final)) {
-					$sql .= '
-						AND DATE(vin_fecha) BETWEEN "' . $f_inicial . '" AND "' . $f_final . '"';
-				}
-
-				$sql .= '
-						GROUP BY reg_id
-					) AS s;';
-				break;
-				*/
-
 		}
 		
 		/*$chart = array();
@@ -305,7 +229,8 @@ class GeneraJSON extends CI_Controller {
 			array_push($chart, $props);	
 		}*/
 
-		return json_encode($chart, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+		//return json_encode($chart, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+		echo json_encode($chart, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
 	}
 
 }
