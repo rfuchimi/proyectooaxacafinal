@@ -275,6 +275,9 @@
         	<form class="form-inline" id="form_mensaje" >
         		<input class="form-control search-text" placeholder="(Enter para enviar)" type="text" id="text_nvo_mensaje" name="query" autocomplete="off">
         		<div class="form-icon" id="form_mensaje">
+                    <!-- campos para asistente de voz -->                  
+                    <button type="button" onclick="startButton(event)"><i id="microfono" class="ti-microphone"></i></button>
+                    <!-- fin campos para asistente de voz -->
             		<button class="" type="submit" id="btn_send_message">
                 <i class="icofont icofont-paper-plane"></i>
                 </button>

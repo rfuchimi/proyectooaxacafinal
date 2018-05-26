@@ -58,6 +58,7 @@
         <script type="text/javascript" src="../bower_components/bootstrap-daterangepicker/js/daterangepicker.js"></script>
 
         <script src="public/assets/js/main.js"></script>
+        <script src="public/assets/js/asistenteVoz.js"></script>
         <script type="text/javascript">
             $(document).ready(function() {
                 <?php
