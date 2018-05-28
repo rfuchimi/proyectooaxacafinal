@@ -25,7 +25,7 @@ class GeneraJSON extends CI_Controller {
 		$legend->area = new stdClass();
 		$legend->area->display = true;
 		$legend->area->title = 'REGIONES DE VENTA TELCEL';
-		$legend->area->mode = 'horizontal';
+		$legend->area->mode = 'vertical';
 		$legend->area->slices = array();
 
 		//CONSULTA DE LAS REGIONES
@@ -57,10 +57,10 @@ class GeneraJSON extends CI_Controller {
 
 		if ($estado && !empty($entrada) && $entrada > 0 && $entrada <= 32) {
 			$sqlMapa .= '
-			WHERE e.est_id = ' . $entrada;
+			WHERE e.est_nombre LIKE "%' . $entrada . '%"';
 		} elseif ( !empty($entrada) && $entrada > 0 && $entrada <= 9 ) {
 			$sqlMapa .= '
-			WHERE r.reg_id = ' . $entrada;
+			WHERE r.reg_nombre LIKE "%' . $entrada . '%"';
 		}
 		$sqlMapa .= '
 			ORDER BY e.est_nombre;';
@@ -74,7 +74,8 @@ class GeneraJSON extends CI_Controller {
 			$areas->{$fila->est_nombre}->href = '#';
 			$areas->{$fila->est_nombre}->tooltip = new stdClass();
 			$areas->{$fila->est_nombre}->tooltip->content = htmlentities(
-				'<span style=\'font-weight:bold;\'>' . $fila->reg_id . '</span><br>' . $fila->est_nombre
+				//'<span style=\'font-weight:bold;\'>' . $fila->reg_id . '</span><br>' . $fila->est_nombre
+				$fila->reg_id . ' - ' . $fila->est_nombre
 			);
 		}
 
@@ -83,8 +84,7 @@ class GeneraJSON extends CI_Controller {
 		$mapa->legend = $legend;
 		$mapa->areas = $areas;
 
-		//return json_encode($mapa, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
-		echo json_encode($mapa, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+		echo json_encode($areas, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
 	}
 
 	public function charts($pregunta, array $opciones = NULL){
@@ -229,7 +229,6 @@ class GeneraJSON extends CI_Controller {
 			array_push($chart, $props);	
 		}*/
 
-		//return json_encode($chart, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
 		echo json_encode($chart, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
 	}
 
