@@ -80,7 +80,12 @@ $(document).ready(function() {
                         //$('#mapaJSON').append(data);
                         //$(".mapcontainer").mapael(jQuery.parseJSON(data));
 
-                        //$(".mapcontainer").trigger('update', [mapOptions]);
+                        var replaceOptions = true;
+                        var mapOptions = {"areas" : res};
+                        //mapOptions['areas'] = {};
+
+
+                        $(".mapcontainer").trigger('update', [{replaceOptions}, {mapOptions}, {animDuration : 1000}]);
                     });
 
                  setTimeout(mostrarMapa, 1000);
