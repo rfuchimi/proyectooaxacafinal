@@ -13,7 +13,10 @@ class GeneraJSON extends CI_Controller {
 		
 	}
 	
-	public function mapa($entrada = '', $estado = false){
+	public function mapa(){
+
+		$entrada = $this->input->post('entrada');
+		$estado = $this->input->post('estado');
 
 		$map = new stdClass();
 		$map->name = 'mexico';
@@ -55,10 +58,10 @@ class GeneraJSON extends CI_Controller {
 			FROM telcel.cat_estado AS e
 			INNER JOIN telcel.cat_region AS r USING (reg_id)';
 
-		if ($estado && !empty($entrada) && $entrada > 0 && $entrada <= 32) {
+		if ($estado && !empty($entrada)) {
 			$sqlMapa .= '
 			WHERE e.est_nombre LIKE "%' . $entrada . '%"';
-		} elseif ( !empty($entrada) && $entrada > 0 && $entrada <= 9 ) {
+		} elseif ( !empty($entrada) ) {
 			$sqlMapa .= '
 			WHERE r.reg_nombre LIKE "%' . $entrada . '%"';
 		}
@@ -74,8 +77,8 @@ class GeneraJSON extends CI_Controller {
 			$areas->{$fila->est_nombre}->href = '#';
 			$areas->{$fila->est_nombre}->tooltip = new stdClass();
 			$areas->{$fila->est_nombre}->tooltip->content = htmlentities(
-				//'<span style=\'font-weight:bold;\'>' . $fila->reg_id . '</span><br>' . $fila->est_nombre
-				$fila->reg_id . ' - ' . $fila->est_nombre
+				//'<span style=\'font-weight:bold;\'>' . $fila->reg_nombre . '</span><br>' . $fila->est_nombre
+				$fila->reg_nombre . ' - ' . $fila->est_nombre
 			);
 		}
 
@@ -84,7 +87,20 @@ class GeneraJSON extends CI_Controller {
 		$mapa->legend = $legend;
 		$mapa->areas = $areas;
 
-		echo json_encode($areas, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+		/*echo 'function cargaMapa(){
+				$(".mapcontainer").mapael(
+					' . json_encode($mapa, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . '
+				);
+			}';*/
+
+		$this->data['script'] = '$(".mapcontainer").mapael(
+					' . json_encode($mapa, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . '
+				);';
+
+		$vista = $this->load->view('mapa_mex/index', $this->data, TRUE);
+
+		$this->output->set_output($vista);
+		//$this->output->set_output($sqlMapa);
 	}
 
 	public function charts($pregunta, array $opciones = NULL){

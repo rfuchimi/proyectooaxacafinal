@@ -59,36 +59,22 @@ $(document).ready(function() {
         if (data['output']) {
           if (data['output']['datos']) {
             if (data['output']['datos']['pintaFrame']) {
-                 setTimeout(ocultarMapa, 500);
-                 setTimeout(ocultarGrafica, 500);
+                 setTimeout(ocultarMapa, 250);
+                 setTimeout(ocultarGrafica, 250);
                 if (data['output']['datos']['pintaFrame'] == "Mapa") {
 
                   var post_array = 
                   {
                     "entrada" : data['output']['datos']['region'] ? data['output']['datos']['region'] : data['output']['datos']['estados'],
-                    "estado" : data['output']['datos']['estados'] ? "true" : "false"
+                    "estado" : data['output']['datos']['estados'] ? true : false
                   }
-
-                  //alert(JSON.stringify(post_array));
-                  //Aqui generamos el JSON del mapa y lo incrustamos en el HTML
                   $.post(BASE_URL + "GeneraJSON/mapa", post_array,
                     function(data)
                     {
-                        var res = jQuery.parseJSON(data);
-                        alert(JSON.stringify(res));
-                        //$('#mapaJSON').HTML('');
-                        //$('#mapaJSON').append(data);
-                        //$(".mapcontainer").mapael(jQuery.parseJSON(data));
-
-                        var replaceOptions = true;
-                        var mapOptions = {"areas" : res};
-                        //mapOptions['areas'] = {};
-
-
-                        $(".mapcontainer").trigger('update', [{replaceOptions}, {mapOptions}, {animDuration : 1000}]);
+                        $("#resultado").html(data);
+                        setTimeout(mostrarMapa, 1000);
                     });
 
-                 setTimeout(mostrarMapa, 1000);
 
                }
                if (data['output']['datos']['pintaFrame'] == "Grafica") {
